@@ -972,7 +972,7 @@ window.ORAR_DATA = {
           "type": "sem",
           "teacher": "conf.univ., dr. Șaragov I.",
           "room": "9-134",
-          "weeks": "both",
+          "weeks": "impara",
           "raw": "Hidraulica (sem) — conf.univ., dr. Șaragov I. — 9-134",
           "slot": 2,
           "time": "09:45–11:15"
