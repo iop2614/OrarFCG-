@@ -1,573 +1,1553 @@
-// ============================================================
-// ORAR ANUL II — 2026-2027
-// Semestrul de toamnă
-// Sursa: „Orar anul II zi CFDP.pdf”
-// ============================================================
-
 window.ORAR_DATA = {
-  meta: {
-    title: "Orarul activităților didactice a.u. 2026-2027, semestrul de toamnă",
-    year: "Anul II",
-    source: "Orar anul II zi CFDP.pdf",
-    weekTypes: ["impara", "para"],
-
-    slots: {
-      1: "08:00–09:30",
-      2: "09:45–11:15",
-      3: "11:30–13:00",
-      4: "13:30–15:00",
-      5: "15:15–16:45",
-      6: "17:00–18:30",
-      7: "18:45–20:15"
-    },
-
-    groups: [
-      "CIC-2501",
-      "IMC-2502",
-      "IGC-2503",
-      "EDI-2504",
-      "IAPC-2505",
-      "CFDP-251",
-      "ISTGCC-251",
-      "ISTGCC-251 D"
-    ]
+  "meta": {
+    "title": "Orar Anul II — CFDP / FCG",
+    "au": "2026-2027",
+    "semester": "Semestrul de toamnă",
+    "year": "Anul II",
+    "faculty": "Facultatea de Construcții și Geodezie — UTM"
   },
-
-  groups: {
-
-    // ==========================================================
-    // CIC-2501
-    // ==========================================================
+  "groupOrder": [
+    "CIC-2501",
+    "IMC-2502",
+    "IGC-2503",
+    "EDI-2504",
+    "IAPC-2505",
+    "CFDP-251",
+    "ISTGCC-251",
+    "ISTGCC-251 D"
+  ],
+  "days": [
+    "Luni",
+    "Marți",
+    "Miercuri",
+    "Joi",
+    "Vineri"
+  ],
+  "times": {
+    "1": "08:00–09:30",
+    "2": "09:45–11:15",
+    "3": "11:30–13:00",
+    "4": "13:30–15:00",
+    "5": "15:15–16:45",
+    "6": "17:00–18:30",
+    "7": "18:45–20:15"
+  },
+  "groups": {
     "CIC-2501": {
-
       "Luni": [
-        E("ME/RI (lab)", "lab", "a.u. Șaragov I.", "9-134", "impara", 1),
-        E("Proiectare de construcții I", "", "a.u. Țurcanu I.", "10-129", "para", 1),
-        E("Mecanica aplicată a fluidelor RI (curs)", "curs",
-          "conf.univ., dr. Chetrari N./Șaragov I./Leancă L.", "9-142", "both", 2),
-        E("Mecanica aplicată a fluidelor RI (curs)", "curs",
-          "conf.univ., dr. Chetrari N./Șaragov I./Leancă L.", "9-142", "both", 3),
-        E("ME/RI (sem)", "sem",
-          "conf.univ., dr. Chetrari N., Leancă L.", "9-142", "both", 4)
+        {
+          "subject": "ME/RI (lab)",
+          "type": "lab",
+          "teacher": "a.u. Șaragov I",
+          "room": "9-134",
+          "raw": "ME/RI (lab) a.u. Șaragov I. 9-134",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Proiectare de construcții I",
+          "type": "",
+          "teacher": "a.u. Țurcanu I",
+          "room": "",
+          "raw": "Proiectare de construcții I a.u. Țurcanu I.",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Mecanica aplicată a fluidelor RI (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L",
+          "room": "9-142",
+          "raw": "Mecanica aplicată a fluidelor RI (curs) conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Mecanica aplicată a fluidelor RI (curs) / PC-I",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L.",
+          "room": "9-142",
+          "raw": "Mecanica aplicată a fl RI (curs) Chetrari N/Șaragov I. / Leancă L. 9-142 PC-I",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "ME/RI (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Chetrari N., Leancă L",
+          "room": "9-142",
+          "raw": "ME/RI (sem) conf.univ., dr. Chetrari N., Leancă L. 9-142",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Bazele statului și dreptului (curs)", "curs",
-          "conf.univ., dr. Ursu V.", "10-309", "both", 3),
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-302", "both", 4),
-        E("L. străină III", "", "", "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Bazele statului și dreptului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ursu V",
+          "room": "10-309",
+          "raw": "Bazele statului și dreptului (curs) conf.univ., dr. Ursu V. 10-309",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-302",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-302",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Economia construcțiilor (curs)", "curs",
-          "conf.univ., dr. Albu I.", "10-129", "both", 1),
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-129", "both", 2),
-        E("Economia construcțiilor (sem)", "sem",
-          "conf.univ., dr. Albu I.", "10-336", "both", 3),
-        E("Rezistența materialelor (lab)", "lab",
-          "conf.univ., dr. Balan V.", "10-124", "impara", 4)
+        {
+          "subject": "Economia construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-129",
+          "raw": "Economia construcțiilor (curs) conf.univ., dr. Albu I. 10-129",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-129",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Economia construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Albu I",
+          "room": "10-336",
+          "raw": "Economia construcțiilor (sem) conf.univ., dr.Albu I. 10-336",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Rezistența materialelor (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr.Balan V",
+          "room": "10-124",
+          "raw": "Rezistența materialelor (lab) conf.univ., dr.Balan V. 10-124",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "impara"
+        }
       ],
-
       "Joi": [
-        E("Matematici speciale (curs)", "curs",
-          "conf.univ., dr. Leah I.", "10-129", "both", 4),
-        E("Matematici speciale (sem)", "sem",
-          "Ciuhrii V.", "10-108", "para", 5)
+        {
+          "subject": "Matematici speciale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Leah I",
+          "room": "10-129",
+          "raw": "Matematici speciale (curs) conf.univ., dr.Leah I. 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (sem)",
+          "type": "sem",
+          "teacher": "Ciuhrii V",
+          "room": "10-108",
+          "raw": "Matematici speciale (sem) Ciuhrii V. 10-108",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "para"
+        }
       ],
-
       "Vineri": [
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-113", "both", 1),
-        E("Rezistența materialelor (sem)", "sem",
-          "conf.univ., dr. Balan E.", "10-108", "both", 2),
-        E("Clădiri civile (sem)", "sem",
-          "a.u. Țurcanu I.", "10-123", "both", 3)
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-113",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Rezistența materialelor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Balan E",
+          "room": "10-108",
+          "raw": "Rezistența materialelor (sem) conf.univ., dr. Balan E. 10-108",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "a.u. Țurcanu I",
+          "room": "10-123",
+          "raw": "Clădiri civile (sem) a.u. Țurcanu I. 10-123",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        }
       ]
     },
-
-    // ==========================================================
-    // IMC-2502
-    // ==========================================================
     "IMC-2502": {
-
       "Luni": [
-        E("ME/RI (lab)", "lab",
-          "a.u. Șaragov I.", "9-134", "both", 1),
-        E("Geodezie tridimensională (lab)", "lab",
-          "a.u. Botnaru D.", "10-105", "both", 2),
-        E("Clădiri civile (sem)", "sem",
-          "Rudic O.", "10-231", "both", 3),
-        E("ME/RI (sem)", "sem",
-          "conf.univ., dr. Chetrari N., Leancă L.", "9-142", "both", 4)
+        {
+          "subject": "ME/RI (lab)",
+          "type": "lab",
+          "teacher": "a.u. Șaragov I",
+          "room": "9-134",
+          "raw": "ME/RI (lab) a.u. Șaragov I. 9-134",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Mecanica aplicată a fluidelor RI (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L",
+          "room": "9-142",
+          "raw": "Mecanica aplicată a fluidelor RI (curs) conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "ME/RI (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Chetrari N., Leancă L",
+          "room": "9-142",
+          "raw": "ME/RI (sem) conf.univ., dr. Chetrari N., Leancă L. 9-142",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Clădiri civile (sem)", "sem",
-          "a.u. Țurcanu I.", "10-112", "both", 1),
-        E("Geologie inginerească (curs)", "curs",
-          "conf.univ., dr. Râșcovoi A.", "10-129", "both", 2),
-        E("Bazele statului și dreptului (curs)", "curs",
-          "conf.univ., dr. Ursu V.", "10-309", "both", 3),
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "a.u. Țurcanu I",
+          "room": "10-112",
+          "raw": "Clădiri civile (sem) a.u. Țurcanu I. 10-112",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Geologie inginerească (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Râșcovoi A",
+          "room": "10-129",
+          "raw": "Geologie inginerească (curs) conf.univ., dr. Râșcovoi A. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Bazele statului și dreptului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ursu V",
+          "room": "10-309",
+          "raw": "Bazele statului și dreptului (curs) conf.univ., dr. Ursu V. 10-309",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Statistica în construcții și imobiliare (lab)", "lab",
-          "conf.univ., dr. Albu D.", "10-230", "both", 2),
-        E("Statistica în construcții și imobiliare (curs)", "curs",
-          "conf.univ., dr. Albu D.", "10-335", "both", 3),
-        E("Geologie inginerească (curs)", "curs",
-          "conf.univ., dr. Râșcovoi", "10-129", "para", 4)
+        {
+          "subject": "Economia construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-129",
+          "raw": "Economia construcțiilor (curs) conf.univ., dr. Albu I. 10-129",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Statistica în construcții și imobiliare (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr.Albu D",
+          "room": "10-230",
+          "raw": "Statistica în construcții și imobiliare (lab) conf.univ., dr.Albu D. 10-230",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Statistica în construcții și imobiliare (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Albu D",
+          "room": "10-335",
+          "raw": "Statistica în construcții și imobiliare (curs) conf.univ., dr.Albu D. 10-335",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Geologie inginerească (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Râșcovoi",
+          "room": "10-129",
+          "raw": "Geologie inginerească (curs) conf.univ., dr. Râșcovoi 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "para"
+        }
       ],
-
       "Joi": [
-        E("Economia construcțiilor (sem)", "sem",
-          "conf.univ., dr. Albu I.", "10-336", "impara", 1),
-        E("Urbanism și sistematizarea teritoriului (curs)", "curs",
-          "conf.univ., dr. Grozavu N.", "10-129", "para", 2),
-        E("Geologie inginerească (curs)", "curs",
-          "conf.univ., dr. Râșcovoi", "10-129", "impara", 3),
-        E("Urbanism și sistematizarea teritoriului (sem)", "sem",
-          "conf.univ., dr. Sîli A.", "10-231", "para", 3),
-        E("Urbanism și sistematizarea teritoriului (sem)", "sem",
-          "conf.univ., dr. Sîli A.", "10-231", "para", 4)
+        {
+          "subject": "Economia construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-336",
+          "raw": "Economia construcțiilor (sem) conf.univ., dr. Albu I. 10-336",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Grozavu N",
+          "room": "10-129",
+          "raw": "Urbanism și sistematizarea teritoriului (curs) conf.univ., dr. Grozavu N. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Geologie inginerească (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Râșcovoi",
+          "room": "10-129",
+          "raw": "Geologie inginerească (curs) conf.univ., dr. Râșcovoi 10-129",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Sîli A",
+          "room": "10-231",
+          "raw": "Urbanism și sistematizarea teritoriului (sem) conf.univ., dr.Sîli A. 10-231",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "para"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Sîli A",
+          "room": "10-231",
+          "raw": "Urbanism și sistematizarea teritoriului (sem) conf.univ., dr.Sîli A. 10-231",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "para"
+        }
       ],
-
       "Vineri": [
-        E("Geologia inginerească (sem)", "sem",
-          "a.u. Platon I.", "9-P18", "impara", 2),
-        E("Geologia inginerească (lab)", "lab",
-          "l.u., dr. Ceban O.", "10-006", "para", 2)
+        {
+          "subject": "Geologia inginerească (sem)",
+          "type": "sem",
+          "teacher": "a.u. Platon I",
+          "room": "9-P18",
+          "raw": "Geologia inginerească (sem) a.u. Platon I. 9-P18",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Geologia inginerească (lab)",
+          "type": "lab",
+          "teacher": "l.u., dr. Ceban O",
+          "room": "10-006",
+          "raw": "Geologia inginerească (lab) l.u., dr. Ceban O. 10-006",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "para"
+        }
       ]
     },
-
-    // ==========================================================
-    // IGC-2503
-    // ==========================================================
     "IGC-2503": {
-
       "Luni": [
-        E("Geodezie tridimensională (curs)", "curs",
-          "conf.univ., dr. Ovdii M.", "10-113", "both", 1),
-        E("Geodezie tridimensională (lab)", "lab",
-          "a.u. Botnaru D.", "10-105", "both", 2),
-        E("Clădiri civile (sem)", "sem",
-          "Rudic O.", "10-231", "both", 3)
+        {
+          "subject": "Geodezie tridimensională (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ovdii M",
+          "room": "10-113",
+          "raw": "Geodezie tridimensională (curs) conf.univ., dr. Ovdii M. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Geodezie tridimensională (lab)",
+          "type": "lab",
+          "teacher": "a.u. Botnaru D",
+          "room": "10-105",
+          "raw": "Geodezie tridimensională (lab) a.u. Botnaru D. 10-105",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "Rudic O",
+          "room": "10-231",
+          "raw": "Clădiri civile (sem) Rudic O. 10-231",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Teoria erorilor și statistica matematică (sem)", "sem",
-          "a.u. Cătărău N.", "10-108", "both", 1),
-        E("Măsurători terestre (lab)", "lab",
-          "a.u. Cătărău N.", "10-104", "both", 2),
-        E("Bazele statului și dreptului (curs)", "curs",
-          "conf.univ., dr. Ursu V.", "10-309", "both", 3),
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Teoria erorilor și statistica matematică (sem)",
+          "type": "sem",
+          "teacher": "a.u. Cătărău N",
+          "room": "10-108",
+          "raw": "Teoria erorilor și statistica matematică (sem) a.u. Cătărău N. 10-108",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Măsurători terestre (lab)",
+          "type": "lab",
+          "teacher": "a.u. Cătărău N",
+          "room": "10-104",
+          "raw": "Măsurători terestre (lab) a.u. Cătărău N. 10-104",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Bazele statului și dreptului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ursu V",
+          "room": "10-309",
+          "raw": "Bazele statului și dreptului (curs) conf.univ., dr. Ursu V. 10-309",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Sisteme geoinformaționale (lab)", "lab",
-          "a.u. Pantaz A.", "10-105", "both", 1),
-        E("Sisteme geoinformaționale (sem)", "sem",
-          "a.u. Pantaz A.", "10-105", "impara", 2),
-        E("Măsurători terestre (sem)", "sem",
-          "a.u. Cătărău N.", "10-112", "para", 2),
-        E("Măsurători terestre (curs)", "curs",
-          "conf.univ., dr. Vlasenco A.", "10-112", "both", 3),
-        E("Teoria erorilor și statistica matematică (curs)", "curs",
-          "conf.univ., dr. Vlasenco A.", "10-112", "both", 4)
+        {
+          "subject": "Sisteme geoinformaționale (lab)",
+          "type": "lab",
+          "teacher": "a.u. Pantaz A",
+          "room": "10-105",
+          "raw": "Sisteme geoinformaționale (lab) a.u. Pantaz A. 10-105",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Sisteme geoinformaționale (sem)",
+          "type": "sem",
+          "teacher": "a.u. Pantaz A",
+          "room": "10-105",
+          "raw": "Sisteme geoinformaționale (sem) a.u. Pantaz A. 10-105",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Măsurători terestre (sem)",
+          "type": "sem",
+          "teacher": "a.u. Cătărău N",
+          "room": "10-112",
+          "raw": "Măsurători terestre (sem) a.u. Cătărău N. 10-112",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "para"
+        },
+        {
+          "subject": "Măsurători terestre (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Vlasenco A",
+          "room": "10-112",
+          "raw": "Măsurători terestre (curs) conf.univ., dr.Vlasenco A. 10-112",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Teoria erorilor și statistica matematică (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Vlasenco A",
+          "room": "10-112",
+          "raw": "Teoria erorilor și statistica matematică (curs) conf.univ., dr.Vlasenco A. 10-112",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Joi": [
-        E("Urbanism și sistematizarea teritoriului (sem)", "sem",
-          "conf.univ., dr. Sîli A.", "10-231", "both", 1),
-        E("Urbanism și sistematizarea teritoriului (curs)", "curs",
-          "conf.univ., dr. Grozavu N.", "10-129", "both", 2)
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Sîli A",
+          "room": "10-231",
+          "raw": "Urbanism și sistematizarea teritoriului (sem) conf.univ., dr. Sîli A. 10-231",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Grozavu N",
+          "room": "10-129",
+          "raw": "Urbanism și sistematizarea teritoriului (curs) conf.univ., dr. Grozavu N. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        }
       ],
-
       "Vineri": [
-        E("Sisteme geoinformaționale (curs)", "curs",
-          "conf.univ. Sârbu R.", "10-129", "para", 2)
+        {
+          "subject": "Sisteme geoinformaționale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ. Sârbu R",
+          "room": "10-129",
+          "raw": "Sisteme geoinformaționale (curs) conf.univ. Sârbu R. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        }
       ]
     },
-
-    // ==========================================================
-    // EDI-2504
-    // ==========================================================
     "EDI-2504": {
-
       "Luni": [
-        E("Sisteme geoinformaționale (lab)", "lab",
-          "conf.univ., dr. Sîrbu R.", "10-101", "both", 1)
+        {
+          "subject": "Sisteme geoinformaționale (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Sîrbu R",
+          "room": "10-101",
+          "raw": "Sisteme geoinformaționale (lab) conf.univ., dr. Sîrbu R. 10-101",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Clădiri civile (sem)", "sem",
-          "Rudic O.", "10-108", "both", 2),
-        E("Bazele statului și dreptului (curs)", "curs",
-          "conf.univ., dr. Ursu V.", "10-309", "both", 3),
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "Rudic O",
+          "room": "10-108",
+          "raw": "Clădiri civile (sem) Rudic O. 10-108",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Bazele statului și dreptului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ursu V",
+          "room": "10-309",
+          "raw": "Bazele statului și dreptului (curs) conf.univ., dr. Ursu V. 10-309",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Economia construcțiilor (curs)", "curs",
-          "conf.univ., dr. Albu I.", "10-129", "both", 1),
-        E("Economia construcțiilor (sem)", "sem",
-          "conf.univ., dr. Albu I.", "10-336", "both", 2),
-        E("Statistica în construcții și imobiliare (curs)", "curs",
-          "conf.univ., dr. Albu D.C.", "10-335", "both", 3),
-        E("Statistica în construcții și imobiliare (lab)", "lab",
-          "conf.univ., dr. Albu D.C.", "10-230", "both", 4)
+        {
+          "subject": "Economia construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-129",
+          "raw": "Economia construcțiilor (curs) conf.univ., dr. Albu I. 10-129",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Economia construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Albu I",
+          "room": "10-336",
+          "raw": "Economia construcțiilor (sem) conf.univ., dr.Albu I. 10-336",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Statistica în construcții și imobiliare (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Albu D.C",
+          "room": "10-335",
+          "raw": "Statistica în construcții și imobiliare (curs) conf.univ., dr.Albu D.C. 10-335",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Statistica în construcții și imobiliare (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr.Albu D.C",
+          "room": "10-230",
+          "raw": "Statistica în construcții și imobiliare (lab) conf.univ., dr.Albu D.C. 10-230",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Joi": [
-        E("Evaluarea terenului (sem)", "sem",
-          "a.u. Bostan I.", "10-331", "both", 1),
-        E("Urbanism și sistematizarea teritoriului (curs)", "curs",
-          "conf.univ., dr. Grozavu N.", "10-129", "impara", 2),
-        E("Urbanism și sistematizarea teritoriului (sem)", "sem",
-          "conf.univ., dr. Sîli A.", "10-231", "impara", 3),
-        E("Urbanism și sistematizarea teritoriului (sem)", "sem",
-          "conf.univ., dr. Sîli A.", "10-231", "impara", 4)
+        {
+          "subject": "Evaluarea terenului (sem)",
+          "type": "sem",
+          "teacher": "a.u. Bostan I",
+          "room": "10-331",
+          "raw": "Evaluarea terenului (sem) a.u. Bostan I. 10-331",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Grozavu N",
+          "room": "10-129",
+          "raw": "Urbanism și sistematizarea teritoriului (curs) conf.univ., dr. Grozavu N. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Sîli A",
+          "room": "10-231",
+          "raw": "Urbanism și sistematizarea teritoriului (sem) conf.univ., dr.Sîli A. 10-231",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Urbanism și sistematizarea teritoriului (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr.Sîli A",
+          "room": "10-231",
+          "raw": "Urbanism și sistematizarea teritoriului (sem) conf.univ., dr.Sîli A. 10-231",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "impara"
+        }
       ],
-
       "Vineri": [
-        E("Sisteme geoinformaționale (curs)", "curs",
-          "conf.univ. Sârbu R.", "10-129", "impara", 2),
-        E("Evaluarea terenului (curs)", "curs",
-          "conf.univ., dr. Leșan A.", "10-336", "both", 3)
+        {
+          "subject": "Sisteme geoinformaționale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ. Sârbu R",
+          "room": "10-129",
+          "raw": "Sisteme geoinformaționale (curs) conf.univ. Sârbu R. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Evaluarea terenului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Leșan A",
+          "room": "10-336",
+          "raw": "Evaluarea terenului (curs) conf.univ., dr. Leșan A. 10-336",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        }
       ]
     },
-
-    // ==========================================================
-    // IAPC-2505
-    // ==========================================================
     "IAPC-2505": {
-
       "Luni": [
-        E("ME/RI (lab)", "lab",
-          "a.u. Șaragov I.", "9-134", "both", 1),
-        E("Mecanica aplicată a fluidelor RI (curs)", "curs",
-          "conf.univ., dr. Chetrari N./Șaragov I./Leancă L.",
-          "9-142", "both", 2),
-        E("Mecanica aplicată a fluidelor RI (curs) / PCI", "curs",
-          "conf.univ., dr. Chetrari N./Șaragov I./Leancă L.",
-          "9-142", "both", 3),
-        E("ME/RI (sem)", "sem",
-          "conf.univ., dr. Chetrari N., Leancă L.",
-          "9-142", "both", 4)
+        {
+          "subject": "ME/RI (lab)",
+          "type": "lab",
+          "teacher": "a.u. Șaragov I",
+          "room": "9-134",
+          "raw": "ME/RI (lab) a.u. Șaragov I. 9-134",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Mecanica aplicată a fluidelor RI (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L",
+          "room": "9-142",
+          "raw": "Mecanica aplicată a fluidelor RI (curs) conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Mecanica aplicată a fluidelor RI (curs) / PC-I",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L.",
+          "room": "9-142",
+          "raw": "Mecanica aplicată a fluidelor RI (curs) / PCI conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "ME/RI (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Chetrari N., Leancă L",
+          "room": "9-142",
+          "raw": "ME/RI (sem) conf.univ., dr. Chetrari N., Leancă L. 9-142",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Geologie inginerească (curs)", "curs",
-          "conf.univ., dr. Râșcovoi A.", "10-129", "both", 2),
-        E("Bazele statului și dreptului (curs)", "curs",
-          "conf.univ., dr. Ursu V.", "10-309", "both", 3),
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Geologie inginerească (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Râșcovoi A",
+          "room": "10-129",
+          "raw": "Geologie inginerească (curs) conf.univ., dr. Râșcovoi A. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Bazele statului și dreptului (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Ursu V",
+          "room": "10-309",
+          "raw": "Bazele statului și dreptului (curs) conf.univ., dr. Ursu V. 10-309",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Economia construcțiilor (sem)", "sem",
-          "conf.univ., dr. Albu I.", "10-336", "both", 2),
-        E("Clădiri civile (sem)", "sem",
-          "Rudic O.", "10-318", "both", 3)
+        {
+          "subject": "Economia construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-129",
+          "raw": "Economia construcțiilor (curs) conf.univ., dr. Albu I. 10-129",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Economia construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Albu I",
+          "room": "10-336",
+          "raw": "Economia construcțiilor (sem) conf.univ., dr. Albu I. 10-336",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "Rudic O",
+          "room": "10-318",
+          "raw": "Clădiri civile (sem) Rudic O. 10-318",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        }
       ],
-
       "Joi": [
-        E("Geologie inginerească (curs)", "curs",
-          "conf.univ., dr. Râșcovoi", "10-129", "impara", 3),
-        E("Matematici speciale (curs)", "curs",
-          "conf.univ., dr. Leah I.", "10-129", "both", 4),
-        E("Matematici speciale (sem)", "sem",
-          "Ciuhrii V.", "10-108", "para", 5)
+        {
+          "subject": "Geologie inginerească (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Râșcovoi",
+          "room": "10-129",
+          "raw": "Geologie inginerească (curs) conf.univ., dr. Râșcovoi 10-129",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Matematici speciale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Leah I",
+          "room": "10-129",
+          "raw": "Matematici speciale (curs) conf.univ., dr.Leah I. 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (sem)",
+          "type": "sem",
+          "teacher": "Ciuhrii V",
+          "room": "10-108",
+          "raw": "Matematici speciale (sem) Ciuhrii V. 10-108",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "para"
+        }
       ],
-
       "Vineri": [
-        E("Geologie inginerească și mecanica pământurilor (lab)", "lab",
-          "l.u., dr. Ceban O.", "10-006", "both", 1),
-        E("Geologia inginerească (sem)", "sem",
-          "a.u. Platon I.", "9-P18", "para", 2)
+        {
+          "subject": "Geologie inginerească și mecanica pământurilor (lab)",
+          "type": "lab",
+          "teacher": "l.u., dr. Ceban O",
+          "room": "10-006",
+          "raw": "Geologie inginerească și mecanica pământurilor (lab) l.u., dr. Ceban O. 10-006",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Geologia inginerească (sem)",
+          "type": "sem",
+          "teacher": "a.u. Platon I",
+          "room": "9-P18",
+          "raw": "Geologia inginerească (sem) a.u. Platon I. 9-P18",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "para"
+        }
       ]
     },
-
-    // ==========================================================
-    // CFDP-251
-    // ==========================================================
     "CFDP-251": {
-
       "Luni": [
-        E("CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem)",
-          "sem", "Andronic R.", "9-P14", "impara", 2),
-
-        E("CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem)",
-          "sem", "Andronic R.", "10-104", "both", 3),
-
-        E("Drumuri I (curs)", "curs",
-          "conf.univ., dr. Pavăl F.-F.", "9-P14", "both", 4),
-
-        E("Drumuri I (sem)", "sem",
-          "conf.univ., dr. Pavăl F.-F.", "9-P14", "impara", 5),
-
-        E("Proiect de an", "",
-          "conf.univ., Pavăl F.-F.", "9-P14", "para", 5)
+        {
+          "subject": "CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem)",
+          "type": "sem",
+          "teacher": "Andronic R",
+          "room": "9-P14",
+          "raw": "CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem) Andronic R. 9-P14",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem)",
+          "type": "sem",
+          "teacher": "Andronic R",
+          "room": "10-104",
+          "raw": "CAD și BIM pentru infrastructuri rutiere, tehnologii GIS (sem) Andronic R. 10-104",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Drumuri I (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Pavăl F.-F",
+          "room": "9-P14",
+          "raw": "Drumuri I (curs) conf.univ., dr. Pavăl F.-F. 9-P14",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Drumuri I (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Pavăl F.-F",
+          "room": "9-P14",
+          "raw": "Drumuri I (sem) conf.univ., dr. Pavăl F.-F. 9-P14",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Proiect de an",
+          "type": "",
+          "teacher": "conf.univ., Pavăl F.-F",
+          "room": "9-P14",
+          "raw": "Proiect de an conf.univ., Pavăl F.-F. 9-P14",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "para"
+        }
       ],
-
       "Marți": [
-        E("Hidraulica (sem)", "sem",
-          "conf.univ., dr. Șaragov I.", "9-134", "impara", 2),
-
-        E("Hidraulica (lab)", "lab",
-          "conf.univ., dr. Șaragov I.", "9-134", "para", 2),
-
-        E("Hidraulica (curs)", "curs",
-          "conf. univ., dr. Șaragov I.", "9-134", "both", 3),
-
-        E("Matematici speciale (sem)", "sem",
-          "Ciuhrii V.", "P-16", "impara", 4),
-
-        E("Hidraulica (lab)", "lab",
-          "conf.univ., dr. Șaragov I.", "9-134", "para", 4),
-
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Hidraulica (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (sem) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Hidraulica (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (curs) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (sem)",
+          "type": "sem",
+          "teacher": "Ciuhrii V",
+          "room": "P-16",
+          "raw": "Matematici speciale (sem) Ciuhrii V. P-16",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Hidraulica (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (lab) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "para"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-129", "both", 2),
-
-        E("Rezistența materialelor (sem)", "sem",
-          "conf.univ., dr. Balan V.", "10-318", "both", 3),
-
-        E("Inginereia mediului penteru infrastructuri (curs)", "curs",
-          "l.u. Vîrlan L.", "9-P14", "para", 4),
-
-        E("Inginereia mediului penteru infrastructuri (curs)", "curs",
-          "l.u. Vîrlan L.", "9-P14", "para", 5)
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-129",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Rezistența materialelor (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-318",
+          "raw": "Rezistența materialelor (sem) conf.univ., dr. Balan V. 10-318",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Ingineria mediului pentru infrastructuri (curs)",
+          "type": "curs",
+          "teacher": "l.u. Vîrlan L",
+          "room": "9-P14",
+          "raw": "Ingineria mediului pentru infrastructuri (curs) l.u. Vîrlan L. 9-P14",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "para"
+        },
+        {
+          "subject": "Ingineria mediului pentru infrastructuri (curs)",
+          "type": "curs",
+          "teacher": "l.u. Vîrlan L",
+          "room": "9-P14",
+          "raw": "Ingineria mediului pentru infrastructuri (curs) l.u. Vîrlan L. 9-P14",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "para"
+        }
       ],
-
       "Joi": [
-        E("Bazele ingineriei infrastructurii transporturilor. Rețele de transport (curs)",
-          "curs", "conf.univ., dr. Bricicaru I.", "9-P14", "both", 2),
-
-        E("Bazele ingineriei infrastructurii transporturilor. Rețele de transport (sem)",
-          "sem", "conf.univ., dr. Bricicaru I.", "9-P14", "both", 3),
-
-        E("Matematici speciale (curs)", "curs",
-          "conf.univ., dr. Leah I.", "10-129", "both", 4)
+        {
+          "subject": "Bazele ingineriei infrastructurii transporturilor. Rețele de transport (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Bricicaru I",
+          "room": "9-P14",
+          "raw": "Bazele ingineriei infrastructurii transporturilor. Rețele de transport (curs) conf.univ., dr. Bricicaru I. 9-P14",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Bazele ingineriei infrastructurii transporturilor. Rețele de transport (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Bricicaru I",
+          "room": "9-P14",
+          "raw": "Bazele ingineriei infrastructurii transporturilor. Rețele de transport (sem) conf.univ., dr. Bricicaru I. 9-P14",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Leah I",
+          "room": "10-129",
+          "raw": "Matematici speciale (curs) conf.univ., dr.Leah I. 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Vineri": [
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-113", "impara", 1),
-
-        E("Rezistența materialelor (lab)", "lab",
-          "conf.univ., dr. Balan V.", "10-113", "para", 1)
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-113",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Rezistența materialelor (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-113",
+          "raw": "Rezistența materialelor (lab) conf.univ., dr. Balan V. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        }
       ]
     },
-
-    // ==========================================================
-    // ISTGCC-251
-    // ==========================================================
     "ISTGCC-251": {
-
       "Luni": [
-        E("Electrotehnica aplicată (lab)", "lab",
-          "Voinesco D./Grușac L.", "2-215", "both", 1),
-
-        E("Termotehnica construcțiilor (sem)", "sem",
-          "a.u. Colomieț T.", "9-242", "impara", 2),
-
-        E("Termotehnica construcțiilor (sem)", "sem",
-          "Colomieț T.", "9-242", "both", 3),
-
-        E("Termotehnica construcțiilor (curs)", "curs",
-          "conf.univ., dr. Begleț N.", "10-242", "both", 4)
+        {
+          "subject": "Electrotehnica aplicată (lab)",
+          "type": "lab",
+          "teacher": "Voinesco D./ Grușac L",
+          "room": "2-215",
+          "raw": "Electrotehnica aplicată (lab) Voinesco D./ Grușac L. 2-215",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Termotehnica construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "a.u.Colomieț T",
+          "room": "9-242",
+          "raw": "Termotehnica construcțiilor (sem) a.u.Colomieț T. 9-242",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Termotehnica construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "Colomieț T",
+          "room": "9-242",
+          "raw": "Termotehnica construcțiilor (sem) Colomieț T. 9-242",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Termotehnica construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Begleț N",
+          "room": "10-242",
+          "raw": "Termotehnica construcțiilor (curs) conf.univ., dr. Begleț N. 10-242",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Electrotehnica aplicată (curs)", "curs",
-          "conf.univ., dr. Chiciuc A.", "10-229", "both", 1),
-
-        E("Hidraulica (sem)", "sem",
-          "conf.univ., dr. Șaragov I.", "9-134", "impara", 2),
-
-        E("Hidraulica (lab)", "lab",
-          "conf.univ., dr. Șaragov I.", "9-134", "para", 2),
-
-        E("Hidraulica (curs)", "curs",
-          "conf. univ., dr. Șaragov I.", "9-134", "both", 3),
-
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Electrotehnica aplicată (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chiciuc A",
+          "room": "10-229",
+          "raw": "Electrotehnica aplicată (curs) conf.univ., dr. Chiciuc A. 10-229",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Hidraulica (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (sem) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Hidraulica (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (lab) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "para"
+        },
+        {
+          "subject": "Hidraulica (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (curs) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Rezistența materialelor (lab)", "lab",
-          "conf.univ., dr. Balan V.", "10-124", "impara", 1),
-
-        E("Clădiri civile (sem)", "sem",
-          "a.u. Țurcanu I.", "10-123", "para", 1),
-
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-129", "both", 2),
-
-        E("Materiale de construcții (lab)", "lab",
-          "a.u. Naval D.", "9-P28", "impara", 4),
-
-        E("Materiale de construcții (lab)", "lab",
-          "a.u. Naval D.", "9-P28", "impara", 5)
+        {
+          "subject": "Rezistența materialelor (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-124",
+          "raw": "Rezistența materialelor (lab) conf.univ., dr. Balan V. 10-124",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "a.u. Țurcanu I",
+          "room": "10-123",
+          "raw": "Clădiri civile (sem) a.u. Țurcanu I. 10-123",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-129",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Materiale de construcții (lab)",
+          "type": "lab",
+          "teacher": "a.u. Naval D",
+          "room": "9-P28",
+          "raw": "Materiale de construcții (lab) a.u. Naval D. 9-P28",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Materiale de construcții (lab)",
+          "type": "lab",
+          "teacher": "a.u. Naval D",
+          "room": "9-P28",
+          "raw": "Materiale de construcții (lab) a.u. Naval D. 9-P28",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "impara"
+        }
       ],
-
       "Joi": [
-        E("Matematici speciale (curs)", "curs",
-          "conf.univ., dr. Leah I.", "10-129", "both", 4),
-
-        E("Matematici speciale (sem)", "sem",
-          "Ciuhrii V.", "10-108", "impara", 5)
+        {
+          "subject": "Matematici speciale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Leah I",
+          "room": "10-129",
+          "raw": "Matematici speciale (curs) conf.univ., dr.Leah I. 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (sem)",
+          "type": "sem",
+          "teacher": "Ciuhrii V",
+          "room": "10-108",
+          "raw": "Matematici speciale (sem) Ciuhrii V. 10-108",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "impara"
+        }
       ],
-
       "Vineri": [
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-113", "impara", 1),
-
-        E("Materiale de construcție (curs)", "curs",
-          "conf. univ., dr. Proaspăt E.", "10-302", "both", 2)
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-113",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Materiale de construcție (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Proaspăt E",
+          "room": "10-302",
+          "raw": "Materiale de construcție (curs) conf.univ., dr.Proaspăt E. 10-302",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        }
       ]
     },
-
-    // ==========================================================
-    // ISTGCC-251 D
-    // ==========================================================
     "ISTGCC-251 D": {
-
       "Luni": [
-        E("Electrotehnica aplicată (lab)", "lab",
-          "Voinesco D./Grușac L.", "2-215", "both", 1),
-
-        E("Termotehnica construcțiilor (sem)", "sem",
-          "a.u. Colomieț T.", "9-242", "para", 2),
-
-        E("Sisteme de alimentare cu gaze I (curs)", "curs",
-          "a.u. Haiducova M.", "9-322", "both", 3),
-
-        E("Termotehnica construcțiilor (curs)", "curs",
-          "conf.univ., dr. Begleț N.", "10-242", "both", 4)
+        {
+          "subject": "Electrotehnica aplicată (lab)",
+          "type": "lab",
+          "teacher": "Voinesco D./ Grușac L",
+          "room": "2-215",
+          "raw": "Electrotehnica aplicată (lab) Voinesco D./ Grușac L. 2-215",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Termotehnica construcțiilor (sem)",
+          "type": "sem",
+          "teacher": "a.u. Colomieț T",
+          "room": "9-242",
+          "raw": "Termotehnica construcțiilor (sem) a.u. Colomieț T. 9-242",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "para"
+        },
+        {
+          "subject": "Sisteme de alimentare cu gaze I (curs)",
+          "type": "curs",
+          "teacher": "a.u. Haiducova M",
+          "room": "9-322",
+          "raw": "Sisteme de alimentare cu gaze I (curs) a.u. Haiducova M. 9-322",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Termotehnica construcțiilor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Begleț N",
+          "room": "10-242",
+          "raw": "Termotehnica construcțiilor (curs) conf.univ., dr. Begleț N. 10-242",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        }
       ],
-
       "Marți": [
-        E("Electrotehnica aplicată (curs)", "curs",
-          "conf.univ., dr. Chiciuc A.", "10-229", "both", 1),
-
-        E("Hidraulica (sem)", "sem",
-          "conf.univ., dr. Șaragov I.", "9-134", "impara", 2),
-
-        E("Hidraulica (lab)", "lab",
-          "conf.univ., dr. Șaragov I.", "9-134", "para", 2),
-
-        E("Hidraulica (curs)", "curs",
-          "conf. univ., dr. Șaragov I.", "9-134", "both", 3),
-
-        E("Clădiri civile (curs)", "curs",
-          "conf.univ., dr. Ciobanu N.", "10-309", "both", 4),
-
-        E("L. străină III", "", "",
-          "10-113, 122A, 123, 124", "both", 5)
+        {
+          "subject": "Electrotehnica aplicată (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chiciuc A",
+          "room": "10-229",
+          "raw": "Electrotehnica aplicată (curs) conf.univ., dr. Chiciuc A. 10-229",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "both"
+        },
+        {
+          "subject": "Hidraulica (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (sem) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Hidraulica (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Șaragov I",
+          "room": "9-134",
+          "raw": "Hidraulica (curs) conf.univ., dr. Șaragov I. 9-134",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Clădiri civile (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Ciobanu N",
+          "room": "10-309",
+          "raw": "Clădiri civile (curs) conf.univ., dr.Ciobanu N. 10-309",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Limba străină III",
+          "type": "",
+          "teacher": "",
+          "room": "10-113, 122A, 123, 124",
+          "raw": "L. străină III 10-113, 122A,123,124",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "both"
+        }
       ],
-
       "Miercuri": [
-        E("Rezistența materialelor (lab)", "lab",
-          "conf.univ., dr. Balan V.", "10-124", "impara", 1),
-
-        E("Clădiri civile (sem)", "sem",
-          "a.u. Țurcanu I.", "10-123", "para", 1),
-
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-129", "both", 2),
-
-        E("Sisteme de alimentare cu gaze I (sem)", "sem",
-          "a.u. Haiducova M.", "9-322", "impara", 3),
-
-        E("Sisteme de alimentare cu gaze I (lab)", "lab",
-          "a.u. Haiducova M.", "9-322", "para", 3),
-
-        E("Rezistența materialelor (lab)", "lab",
-          "conf.univ., dr. Balan V.", "10-124", "para", 4)
+        {
+          "subject": "Rezistența materialelor (lab)",
+          "type": "lab",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-124",
+          "raw": "Rezistența materialelor (lab) conf.univ., dr. Balan V. 10-124",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Clădiri civile (sem)",
+          "type": "sem",
+          "teacher": "a.u. Țurcanu I",
+          "room": "10-123",
+          "raw": "Clădiri civile (sem) a.u. Țurcanu I. 10-123",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "para"
+        },
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-129",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-129",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Sisteme de alimentare cu gaze I (sem)",
+          "type": "sem",
+          "teacher": "a.u. Haiducova M",
+          "room": "9-322",
+          "raw": "Sisteme de alimentare cu gaze I (sem) a.u. Haiducova M. 9-322",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Sisteme de alimentare cu gaze I (lab)",
+          "type": "lab",
+          "teacher": "a.u. Haiducova M",
+          "room": "9-322",
+          "raw": "Sisteme de alimentare cu gaze I (lab) a.u. Haiducova M. 9-322",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "para"
+        }
       ],
-
       "Joi": [
-        E("RAAC (sem)", "sem",
-          "conf.univ., dr. Chetrari N.", "9-138", "impara", 2),
-
-        E("RAAC (curs)", "curs",
-          "conf.univ., dr. Chetrari N.", "9-138", "impara", 3),
-
-        E("Matematici speciale (curs)", "curs",
-          "conf.univ., dr. Leah I.", "10-129", "both", 4),
-
-        E("Matematici speciale (sem)", "sem",
-          "Ciuhrii V.", "10-108", "impara", 5)
+        {
+          "subject": "RAAC (sem)",
+          "type": "sem",
+          "teacher": "conf.univ., dr. Chetrari N",
+          "room": "9-138",
+          "raw": "RAAC (sem) conf.univ., dr. Chetrari N. 9-138",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "impara"
+        },
+        {
+          "subject": "RAAC (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Chetrari N",
+          "room": "9-138",
+          "raw": "RAAC (curs) conf.univ., dr. Chetrari N. 9-138",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr.Leah I",
+          "room": "10-129",
+          "raw": "Matematici speciale (curs) conf.univ., dr.Leah I. 10-129",
+          "slot": 4,
+          "time": "13:30–15:00",
+          "weeks": "both"
+        },
+        {
+          "subject": "Matematici speciale (sem)",
+          "type": "sem",
+          "teacher": "Ciuhrii V",
+          "room": "10-108",
+          "raw": "Matematici speciale (sem) Ciuhrii V. 10-108",
+          "slot": 5,
+          "time": "15:15–16:45",
+          "weeks": "impara"
+        }
       ],
-
       "Vineri": [
-        E("Rezistența materialelor (curs)", "curs",
-          "conf.univ., dr. Balan V.", "10-113", "impara", 1),
-
-        E("Generatoare de căldură (curs)", "curs",
-          "a.u. Andoni N.", "9-242", "both", 2),
-
-        E("Generatoare de căldură (sem)", "sem",
-          "a.u. Andoni N.", "9-242", "impara", 3)
+        {
+          "subject": "Rezistența materialelor (curs)",
+          "type": "curs",
+          "teacher": "conf.univ., dr. Balan V",
+          "room": "10-113",
+          "raw": "Rezistența materialelor (curs) conf.univ., dr. Balan V. 10-113",
+          "slot": 1,
+          "time": "08:00–09:30",
+          "weeks": "impara"
+        },
+        {
+          "subject": "Generatoare de căldură (curs)",
+          "type": "curs",
+          "teacher": "a.u. Andoni N",
+          "room": "9-242",
+          "raw": "Generatoare de căldură (curs) a.u. Andoni N. 9-242",
+          "slot": 2,
+          "time": "09:45–11:15",
+          "weeks": "both"
+        },
+        {
+          "subject": "Generatoare de căldură (sem)",
+          "type": "sem",
+          "teacher": "a.u. Andoni N",
+          "room": "9-242",
+          "raw": "Generatoare de căldură (sem) a.u. Andoni N. 9-242",
+          "slot": 3,
+          "time": "11:30–13:00",
+          "weeks": "impara"
+        }
       ]
     }
   }
 };
-
-
-// ============================================================
-// FUNCȚIE DE CONSTRUIRE A UNEI ORE
-// ============================================================
-
-function E(subject, type, teacher, room, weeks, slot) {
-
-  const times = {
-    1: "08:00–09:30",
-    2: "09:45–11:15",
-    3: "11:30–13:00",
-    4: "13:30–15:00",
-    5: "15:15–16:45",
-    6: "17:00–18:30",
-    7: "18:45–20:15"
-  };
-
-  return {
-    subject: subject,
-    type: type,
-    teacher: teacher,
-    room: room,
-    weeks: weeks,
-    raw:
-      subject +
-      (teacher ? " — " + teacher : "") +
-      (room ? " — " + room : ""),
-    slot: slot,
-    time: times[slot]
-  };
-}
