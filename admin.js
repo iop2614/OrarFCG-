@@ -3,6 +3,7 @@
   const PASSWORD = "Ianik";
   const SESSION_KEY = "orar-admin-session";
   const GROUPS_KEY = "orar-an2-groups";
+  const dayNames = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"];
 
   const loginPanel = document.getElementById("login-panel");
   const loginForm = document.getElementById("login-form");
@@ -11,12 +12,17 @@
   const pdfPanel = document.getElementById("pdf-panel");
   const form = document.getElementById("parse-form");
   const statusEl = document.getElementById("form-status");
+  const publishedPanel = document.getElementById("published-panel");
   const publishedEl = document.getElementById("published");
   const editor = document.getElementById("editor");
+  const editPicker = document.getElementById("edit-picker");
+  const editBoard = document.getElementById("edit-board");
   const editorTitle = document.getElementById("editor-title");
   const editorWarnings = document.getElementById("editor-warnings");
   const editorGroups = document.getElementById("editor-groups");
   const editorLessons = document.getElementById("editor-lessons");
+  const saveStatus = document.getElementById("save-status");
+  const backList = document.getElementById("btn-back-list");
 
   let draft = null;
   let activeGroup = "";
@@ -39,9 +45,14 @@
       .replaceAll('"', "&quot;");
   }
 
-  function setEditorVisible(visible) {
-    editor.hidden = !visible;
-    editor.classList.toggle("hidden", !visible);
+  function setVisible(element, visible) {
+    if (!element) return;
+    element.hidden = !visible;
+    element.classList.toggle("hidden", !visible);
+  }
+
+  function todayDayName() {
+    return dayNames[(new Date().getDay() + 6) % 7];
   }
 
   function year2FromFile() {
@@ -74,21 +85,15 @@
 
   function showStaticYear2() {
     staticMode = true;
-    pdfPanel.hidden = true;
-    pdfPanel.classList.add("hidden");
+    setVisible(pdfPanel, false);
+    setVisible(publishedPanel, false);
     const schedule = year2FromFile();
     if (!schedule) {
+      setVisible(publishedPanel, true);
       publishedEl.innerHTML = "<p class='hint'>Lipsește data.js cu orarul anului II.</p>";
       return;
     }
-    publishedEl.innerHTML = `<article class="published-card">
-      <div>
-        <strong>FCG · Anul II</strong>
-        <p>zi · toamnă · ${escapeHtml(schedule.au)}. Corectezi orele aici, fără bază de date.</p>
-      </div>
-      <button type="button" class="btn ghost" id="btn-open-year2">Corectează</button>
-    </article>`;
-    document.getElementById("btn-open-year2").addEventListener("click", () => openDraft(year2FromFile()));
+    openDraft(schedule);
   }
 
   async function loadPublished() {
@@ -131,128 +136,179 @@
     publishedEl._schedules = schedules;
   }
 
-  function openDraft(schedule) {
-    draft = structuredClone(schedule);
-    activeGroup = draft.groupOrder[0] || "";
-    editorTitle.textContent = `${draft.faculty} · Anul ${draft.year} · ${draft.semester}`;
-    const warnings = draft.warnings || [];
-    editorWarnings.textContent = warnings.length
-      ? warnings.join(" ")
-      : `${draft.lessonCount || "Orarul"} este gata de verificat. Publicarea înlocuiește orarul cu același an și semestru.`;
-    renderGroupTabs();
-    renderLessons();
-    setEditorVisible(true);
-    editor.scrollIntoView({ behavior: "smooth", block: "start" });
+  function paintHeader() {
+    const eyebrow = document.getElementById("admin-eyebrow");
+    const title = document.getElementById("admin-title");
+    if (!draft) return;
+    eyebrow.textContent = `UTM · ${draft.faculty} · a.u. ${draft.au}`;
+    title.textContent = "Orar Construcții";
+    document.getElementById("admin-subtitle").textContent = `Anul ${draft.year} · ${draft.form} · ${draft.semester} · editare`;
   }
 
-  function renderGroupTabs() {
+  function openDraft(schedule) {
+    draft = structuredClone(schedule);
+    activeGroup = "";
+    setVisible(pdfPanel, false);
+    setVisible(publishedPanel, false);
+    setVisible(editor, true);
+    setVisible(backList, !staticMode);
+    paintHeader();
+    const warnings = draft.warnings || [];
+    editorWarnings.textContent = warnings.join(" ");
+    setVisible(editorWarnings, warnings.length > 0);
+    showGroupPicker();
+  }
+
+  function showGroupPicker() {
+    setVisible(editPicker, true);
+    setVisible(editBoard, false);
     editorGroups.innerHTML = draft.groupOrder
       .map((code) => {
-        const active = code === activeGroup ? " active" : "";
-        return `<button type="button" class="group-card${active}" data-group="${escapeHtml(code)}">
+        return `<button type="button" class="group-card" data-group="${escapeHtml(code)}">
           <span class="code">${escapeHtml(code)}</span>
+          <span class="meta">Anul ${escapeHtml(draft.year)} · ${escapeHtml(draft.form)}</span>
         </button>`;
       })
       .join("");
   }
 
-  function lessonsOf(group) {
-    const days = draft.groups[group] || {};
-    const rows = [];
-    for (const day of draft.days) {
-      for (const lesson of days[day] || []) rows.push({ day, lesson });
-    }
-    rows.sort((a, b) => draft.days.indexOf(a.day) - draft.days.indexOf(b.day) || a.lesson.slot - b.lesson.slot);
-    return rows;
+  function dayList(day) {
+    if (!draft.groups[activeGroup][day]) draft.groups[activeGroup][day] = [];
+    return draft.groups[activeGroup][day];
   }
 
-  function renderLessons() {
-    const rows = lessonsOf(activeGroup);
-    const cards = rows
-      .map(({ day, lesson }, index) => {
-        return `<article class="lesson-edit" data-index="${index}">
-          <div class="lesson-edit-top">
-            <strong>${escapeHtml(day)} · ora ${lesson.slot}</strong>
-            <button type="button" class="btn ghost danger" data-remove="${index}">Șterge</button>
+  function lessonCard(day, lesson) {
+    const index = dayList(day).indexOf(lesson);
+    const type = lesson.type || "";
+    return `<article class="lesson ${escapeHtml(type)} editing" data-day="${escapeHtml(day)}" data-index="${index}">
+      <div class="lesson-top">
+        <select class="edit-time" data-field="slot" aria-label="Ora">
+          ${[1, 2, 3, 4, 5, 6, 7].map((slot) => `<option value="${slot}" ${Number(lesson.slot) === slot ? "selected" : ""}>${times[slot]}</option>`).join("")}
+        </select>
+        <select class="edit-badge badge type-${escapeHtml(type)}" data-field="type" aria-label="Tip">
+          <option value="" ${!type ? "selected" : ""}>—</option>
+          <option value="curs" ${type === "curs" ? "selected" : ""}>curs</option>
+          <option value="sem" ${type === "sem" ? "selected" : ""}>sem</option>
+          <option value="lab" ${type === "lab" ? "selected" : ""}>lab</option>
+        </select>
+        <select class="edit-badge badge week-${escapeHtml(lesson.weeks)}" data-field="weeks" aria-label="Săptămâna">
+          <option value="both" ${lesson.weeks === "both" ? "selected" : ""}>Ambele</option>
+          <option value="impara" ${lesson.weeks === "impara" ? "selected" : ""}>Impară</option>
+          <option value="para" ${lesson.weeks === "para" ? "selected" : ""}>Pară</option>
+        </select>
+        <button type="button" class="edit-remove" data-remove>Șterge</button>
+      </div>
+      <input class="edit-subject" data-field="subject" value="${escapeHtml(lesson.subject)}" placeholder="Disciplina" aria-label="Disciplina" />
+      <div class="meta-row">
+        <label class="edit-meta"><span>Cadru</span><input data-field="teacher" value="${escapeHtml(lesson.teacher)}" placeholder="Cadrul didactic" aria-label="Cadrul didactic" /></label>
+        <label class="edit-meta"><span>Sala</span><input data-field="room" value="${escapeHtml(lesson.room)}" placeholder="Sala" aria-label="Sala" /></label>
+      </div>
+    </article>`;
+  }
+
+  function renderBoard() {
+    const today = todayDayName();
+    editorTitle.textContent = activeGroup;
+    editorLessons.innerHTML = draft.days
+      .map((day) => {
+        const lessons = dayList(day).slice().sort((a, b) => a.slot - b.slot || dayList(day).indexOf(a) - dayList(day).indexOf(b));
+        const isToday = day === today;
+        const cards = lessons.length
+          ? lessons.map((lesson) => lessonCard(day, lesson)).join("")
+          : `<p class="empty-day">Fără ore în această zi.</p>`;
+        return `<section class="day-col${isToday ? " today" : ""}">
+          <h3 class="day-head">${escapeHtml(day)}${isToday ? " · azi" : ""}</h3>
+          <div class="day-body">
+            ${cards}
+            <button type="button" class="btn ghost add-pair" data-add-day="${escapeHtml(day)}">Adaugă pereche</button>
           </div>
-          <div class="admin-form compact">
-            <label>Ora
-              <select data-field="slot">
-                ${[1, 2, 3, 4, 5, 6, 7].map((slot) => `<option value="${slot}" ${Number(lesson.slot) === slot ? "selected" : ""}>${slot} · ${times[slot]}</option>`).join("")}
-              </select>
-            </label>
-            <label>Săptămâna
-              <select data-field="weeks">
-                <option value="both" ${lesson.weeks === "both" ? "selected" : ""}>Ambele</option>
-                <option value="impara" ${lesson.weeks === "impara" ? "selected" : ""}>Impară</option>
-                <option value="para" ${lesson.weeks === "para" ? "selected" : ""}>Pară</option>
-              </select>
-            </label>
-            <label>Tip
-              <select data-field="type">
-                <option value="" ${!lesson.type ? "selected" : ""}>—</option>
-                <option value="curs" ${lesson.type === "curs" ? "selected" : ""}>curs</option>
-                <option value="sem" ${lesson.type === "sem" ? "selected" : ""}>seminar</option>
-                <option value="lab" ${lesson.type === "lab" ? "selected" : ""}>laborator</option>
-              </select>
-            </label>
-            <label class="span-2">Disciplina<input data-field="subject" value="${escapeHtml(lesson.subject)}" /></label>
-            <label>Cadrul didactic<input data-field="teacher" value="${escapeHtml(lesson.teacher)}" /></label>
-            <label>Sala<input data-field="room" value="${escapeHtml(lesson.room)}" /></label>
-          </div>
-        </article>`;
+        </section>`;
       })
       .join("");
-    editorLessons.innerHTML = `${cards}<button type="button" id="btn-add" class="btn ghost">Adaugă oră</button>`;
   }
 
-  function rowAt(index) {
-    return lessonsOf(activeGroup)[index];
+  function showBoard(group) {
+    activeGroup = group;
+    if (!draft.groups[activeGroup]) draft.groups[activeGroup] = {};
+    setVisible(editPicker, false);
+    setVisible(editBoard, true);
+    saveStatus.textContent = "";
+    renderBoard();
+  }
+
+  function lessonFromCard(card) {
+    const list = dayList(card.dataset.day);
+    return list[Number(card.dataset.index)] || null;
   }
 
   editorGroups.addEventListener("click", (event) => {
     const button = event.target.closest("[data-group]");
     if (!button || !draft) return;
-    activeGroup = button.dataset.group;
-    renderGroupTabs();
-    renderLessons();
+    showBoard(button.dataset.group);
+  });
+
+  document.getElementById("btn-change-group").addEventListener("click", () => {
+    if (!draft) return;
+    showGroupPicker();
+  });
+
+  editorLessons.addEventListener("input", (event) => {
+    const field = event.target.dataset.field;
+    if (!field || field === "slot" || field === "type" || field === "weeks") return;
+    const card = event.target.closest("[data-index]");
+    const lesson = card && lessonFromCard(card);
+    if (!lesson) return;
+    lesson[field] = event.target.value;
+    saveStatus.textContent = "";
   });
 
   editorLessons.addEventListener("change", (event) => {
     const field = event.target.dataset.field;
     const card = event.target.closest("[data-index]");
     if (!field || !card || !draft) return;
-    const row = rowAt(Number(card.dataset.index));
-    if (!row) return;
+    const lesson = lessonFromCard(card);
+    if (!lesson) return;
     if (field === "slot") {
-      row.lesson.slot = Number(event.target.value);
-      row.lesson.time = times[row.lesson.slot];
+      lesson.slot = Number(event.target.value);
+      lesson.time = times[lesson.slot];
+      renderBoard();
       return;
     }
-    row.lesson[field] = event.target.value;
+    if (field === "type" || field === "weeks") {
+      lesson[field] = event.target.value;
+      renderBoard();
+    }
   });
 
   editorLessons.addEventListener("click", (event) => {
-    if (event.target.id === "btn-add") {
-      const day = draft.days[0];
-      draft.groups[activeGroup][day].push({
-        slot: 1,
-        time: times[1],
+    const add = event.target.closest("[data-add-day]");
+    if (add && draft) {
+      const list = dayList(add.dataset.addDay);
+      const used = new Set(list.map((item) => Number(item.slot)));
+      let slot = 1;
+      while (used.has(slot) && slot < 7) slot += 1;
+      list.push({
+        slot,
+        time: times[slot],
         weeks: "both",
         subject: "",
         type: "curs",
         teacher: "",
         room: "",
       });
-      renderLessons();
+      renderBoard();
+      const inputs = editorLessons.querySelectorAll(`[data-day="${CSS.escape(add.dataset.addDay)}"] .edit-subject`);
+      const last = inputs[inputs.length - 1];
+      if (last) last.focus();
       return;
     }
     const remove = event.target.closest("[data-remove]");
     if (!remove || !draft) return;
-    const row = rowAt(Number(remove.dataset.remove));
-    if (!row) return;
-    draft.groups[activeGroup][row.day] = draft.groups[activeGroup][row.day].filter((item) => item !== row.lesson);
-    renderLessons();
+    const card = remove.closest("[data-index]");
+    const lesson = card && lessonFromCard(card);
+    if (!lesson) return;
+    draft.groups[activeGroup][card.dataset.day] = dayList(card.dataset.day).filter((item) => item !== lesson);
+    renderBoard();
   });
 
   form.addEventListener("submit", async (event) => {
@@ -260,10 +316,10 @@
     statusEl.textContent = "Citesc PDF-ul…";
     const data = new FormData(form);
     try {
-      const response = await fetch("/api/admin/parse", { method: "POST", body: data });
+      const response = await fetch("api/admin/parse", { method: "POST", body: data });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "Citirea a eșuat");
-      statusEl.textContent = "PDF-ul a fost citit. Verifică orele, apoi publică.";
+      statusEl.textContent = "";
       openDraft(body.schedule);
     } catch (error) {
       statusEl.textContent = error.message;
@@ -274,36 +330,27 @@
     if (!draft) return;
     if (staticMode) {
       localStorage.setItem(GROUPS_KEY, JSON.stringify(draft.groups));
-      setEditorVisible(false);
-      draft = null;
-      showStaticYear2();
-      publishedEl.insertAdjacentHTML(
-        "afterbegin",
-        "<p class='hint'>Orarul anului II a fost salvat. Reîncarcă pagina studenților din acest browser.</p>"
-      );
+      saveStatus.textContent = "Salvat în acest browser.";
       return;
     }
-    statusEl.textContent = "Public…";
-    const response = await fetch("/api/admin/publish", {
+    saveStatus.textContent = "Salvez…";
+    const response = await fetch("api/admin/publish", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(draft),
     });
     const body = await response.json();
-    if (!response.ok) {
-      statusEl.textContent = body.error || "Publicarea a eșuat";
-      return;
-    }
-    statusEl.textContent = "Orarul este public. Studenții îl văd la pagina principală.";
-    setEditorVisible(false);
-    draft = null;
-    loadPublished();
+    saveStatus.textContent = response.ok ? "Salvat. Studenții îl văd pe pagina principală." : body.error || "Salvarea a eșuat";
   });
 
-  document.getElementById("btn-discard").addEventListener("click", () => {
+  backList.addEventListener("click", () => {
     draft = null;
-    setEditorVisible(false);
-    statusEl.textContent = "";
+    setVisible(editor, false);
+    setVisible(pdfPanel, true);
+    setVisible(publishedPanel, true);
+    document.getElementById("admin-title").textContent = "Administrare";
+    document.getElementById("admin-subtitle").textContent = "Orarul anului II";
+    loadPublished();
   });
 
   publishedEl.addEventListener("click", async (event) => {
@@ -315,16 +362,14 @@
     }
     if (remove) {
       if (!confirm("Ștergi acest orar de pe pagina studenților?")) return;
-      await fetch(`/api/admin/schedules/${encodeURIComponent(remove.dataset.delete)}`, { method: "DELETE" });
+      await fetch(`api/admin/schedules/${encodeURIComponent(remove.dataset.delete)}`, { method: "DELETE" });
       loadPublished();
     }
   });
 
   function showAdmin() {
-    loginPanel.hidden = true;
-    loginPanel.classList.add("hidden");
-    adminApp.hidden = false;
-    adminApp.classList.remove("hidden");
+    setVisible(loginPanel, false);
+    setVisible(adminApp, true);
     document.getElementById("admin-subtitle").textContent = "Orarul anului II";
     loadPublished().catch(() => showStaticYear2());
   }
