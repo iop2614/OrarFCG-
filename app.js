@@ -1,44 +1,67 @@
 (() => {
-  const STORAGE_KEY = "orar-cfdp-group";
-  // Luni 14 septembrie 2026 = începutul săptămânii impare (referință)
+  const STORAGE_KEY = "orar-selection";
   const REF_MONDAY = Date.UTC(2026, 8, 14);
 
-  const data = window.ORAR_DATA;
-  if (!data) {
-    document.body.innerHTML = "<p style='padding:2rem'>Datele orarului lipsesc (data.js).</p>";
-    return;
-  }
-
+  const programPicker = document.getElementById("program-picker");
+  const programGrid = document.getElementById("program-grid");
   const picker = document.getElementById("picker");
   const timetable = document.getElementById("timetable");
   const groupGrid = document.getElementById("group-grid");
   const activeGroupEl = document.getElementById("active-group");
   const weekBoard = document.getElementById("week-board");
   const btnChange = document.getElementById("btn-change");
+  const btnProgram = document.getElementById("btn-program");
   const currentWeekLabel = document.getElementById("current-week-label");
+  const eyebrow = document.getElementById("eyebrow");
+  const subtitle = document.getElementById("subtitle");
+  const adminLink = document.getElementById("admin-link");
 
-  let selectedGroup = localStorage.getItem(STORAGE_KEY) || "";
+  let schedules = [];
+  let usingServer = false;
+  let selectedId = "";
+  let selectedGroup = "";
   let weekMode = "auto";
 
   const dayNames = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"];
 
-  const programLabels = {
-    "CIC-2501": "Anul II · zi",
-    "IMC-2502": "Anul II · zi",
-    "IGC-2503": "Anul II · zi",
-    "EDI-2504": "Anul II · zi",
-    "IAPC-2505": "Anul II · zi",
-    "CFDP-251": "Căi ferate, drumuri și poduri",
-    "ISTGCC-251": "Anul II · zi",
-    "ISTGCC-251 D": "Anul II · zi (D)",
-  };
+  function currentSchedule() {
+    return schedules.find((item) => item.id === selectedId) || null;
+  }
+
+  function savedSelection() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  function remember() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ id: selectedId, group: selectedGroup }));
+  }
+
+  function legacySchedule(data) {
+    return {
+      id: "fcg-ii-zi-toamna-2026",
+      faculty: "FCG",
+      facultyName: data.meta?.faculty || "Facultatea de Construcții și Geodezie",
+      year: "II",
+      form: "zi",
+      au: data.meta?.au || "2026-2027",
+      semester: "toamnă",
+      groupOrder: data.groupOrder,
+      days: data.days,
+      times: data.times,
+      groups: data.groups,
+    };
+  }
 
   function startOfMonday(date) {
-    const d = new Date(date);
-    const day = (d.getDay() + 6) % 7; // Luni = 0
-    d.setHours(0, 0, 0, 0);
-    d.setDate(d.getDate() - day);
-    return d;
+    const value = new Date(date);
+    const day = (value.getDay() + 6) % 7;
+    value.setHours(0, 0, 0, 0);
+    value.setDate(value.getDate() - day);
+    return value;
   }
 
   function detectCurrentWeekType(date = new Date()) {
@@ -77,6 +100,18 @@
     return lesson.weeks === mode;
   }
 
+  function setVisible(element, visible) {
+    element.hidden = !visible;
+    element.classList.toggle("hidden", !visible);
+  }
+
+  function updateHeader() {
+    const schedule = currentSchedule();
+    if (!schedule) return;
+    eyebrow.textContent = `UTM · ${schedule.faculty} · a.u. ${schedule.au}`;
+    subtitle.textContent = `Anul ${schedule.year} · ${schedule.form} · ${schedule.semester}`;
+  }
+
   function updateWeekStatus() {
     const current = detectCurrentWeekType();
     const showing = effectiveWeek();
@@ -96,13 +131,25 @@
     });
   }
 
+  function renderPrograms() {
+    programGrid.innerHTML = schedules
+      .map((schedule) => {
+        return `<button type="button" class="group-card" data-program="${escapeHtml(schedule.id)}" role="listitem">
+          <span class="code">${escapeHtml(schedule.faculty)} · Anul ${escapeHtml(schedule.year)}</span>
+          <span class="meta">${escapeHtml(schedule.form)} · ${escapeHtml(schedule.semester)} · ${escapeHtml(schedule.au)}</span>
+        </button>`;
+      })
+      .join("");
+  }
+
   function renderPicker() {
-    groupGrid.innerHTML = data.groupOrder
+    const schedule = currentSchedule();
+    if (!schedule) return;
+    groupGrid.innerHTML = schedule.groupOrder
       .map((code) => {
-        const label = programLabels[code] || "Grupa";
         return `<button type="button" class="group-card" data-group="${escapeHtml(code)}" role="listitem">
           <span class="code">${escapeHtml(code)}</span>
-          <span class="meta">${escapeHtml(label)}</span>
+          <span class="meta">Anul ${escapeHtml(schedule.year)} · ${escapeHtml(schedule.form)}</span>
         </button>`;
       })
       .join("");
@@ -117,14 +164,12 @@
       lesson.weeks === "both"
         ? ""
         : `<span class="badge week-${escapeHtml(lesson.weeks)}">${weekLabel(lesson.weeks)}</span>`;
-
     const teacher = lesson.teacher
       ? `<span><strong>Cadru:</strong> ${escapeHtml(lesson.teacher)}</span>`
       : "";
     const room = lesson.room
       ? `<span><strong>Sala:</strong> ${escapeHtml(lesson.room)}</span>`
       : "";
-
     return `<article class="lesson ${escapeHtml(type)}">
       <div class="lesson-top">
         <span class="time">${escapeHtml(lesson.time)}</span>
@@ -137,15 +182,15 @@
   }
 
   function renderTimetable() {
-    const groupData = data.groups[selectedGroup] || {};
+    const schedule = currentSchedule();
+    if (!schedule) return;
+    const groupData = schedule.groups[selectedGroup] || {};
     activeGroupEl.textContent = selectedGroup;
     updateWeekStatus();
     syncWeekButtons();
-
     const today = todayDayName();
     const mode = effectiveWeek();
-
-    weekBoard.innerHTML = data.days
+    weekBoard.innerHTML = schedule.days
       .map((day) => {
         const lessons = (groupData[day] || []).filter(matchesWeek);
         const isToday = day === today;
@@ -160,53 +205,117 @@
       .join("");
   }
 
+  function showPrograms() {
+    setVisible(programPicker, true);
+    setVisible(picker, false);
+    setVisible(timetable, false);
+    renderPrograms();
+  }
+
   function showPicker() {
-    picker.hidden = false;
-    picker.classList.remove("hidden");
-    timetable.hidden = true;
-    timetable.classList.add("hidden");
+    setVisible(programPicker, false);
+    setVisible(picker, true);
+    setVisible(timetable, false);
+    setVisible(btnProgram, schedules.length > 1);
+    updateHeader();
+    renderPicker();
   }
 
   function showTimetable() {
-    picker.hidden = true;
-    picker.classList.add("hidden");
-    timetable.hidden = false;
-    timetable.classList.remove("hidden");
+    setVisible(programPicker, false);
+    setVisible(picker, false);
+    setVisible(timetable, true);
+    setVisible(btnProgram, schedules.length > 1);
+    updateHeader();
     renderTimetable();
+  }
+
+  function selectProgram(id) {
+    selectedId = id;
+    selectedGroup = "";
+    remember();
+    showPicker();
   }
 
   function selectGroup(code) {
     selectedGroup = code;
-    localStorage.setItem(STORAGE_KEY, code);
+    remember();
     showTimetable();
   }
 
-  groupGrid.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-group]");
-    if (!btn) return;
-    selectGroup(btn.dataset.group);
+  programGrid.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-program]");
+    if (!button) return;
+    selectProgram(button.dataset.program);
+  });
+
+  groupGrid.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-group]");
+    if (!button) return;
+    selectGroup(button.dataset.group);
   });
 
   btnChange.addEventListener("click", () => {
-    localStorage.removeItem(STORAGE_KEY);
     selectedGroup = "";
+    remember();
     showPicker();
   });
 
-  document.querySelectorAll(".week-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      weekMode = btn.dataset.week;
+  btnProgram.addEventListener("click", () => {
+    selectedId = "";
+    selectedGroup = "";
+    remember();
+    showPrograms();
+  });
+
+  document.querySelectorAll(".week-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      weekMode = button.dataset.week;
       renderTimetable();
     });
   });
 
-  renderPicker();
+  async function start() {
+    try {
+      const response = await fetch("/api/catalog");
+      if (!response.ok) throw new Error("offline");
+      const body = await response.json();
+      schedules = body.schedules || [];
+      usingServer = true;
+    } catch {
+      if (window.ORAR_DATA) {
+        const schedule = legacySchedule(window.ORAR_DATA);
+        const savedGroups = localStorage.getItem("orar-an2-groups");
+        if (savedGroups) {
+          try {
+            schedule.groups = JSON.parse(savedGroups);
+          } catch {
+            localStorage.removeItem("orar-an2-groups");
+          }
+        }
+        schedules = [schedule];
+      }
+    }
+    if (adminLink) setVisible(adminLink, true);
 
-  if (selectedGroup && data.groups[selectedGroup]) {
-    showTimetable();
-  } else {
-    selectedGroup = "";
-    localStorage.removeItem(STORAGE_KEY);
-    showPicker();
+    if (!schedules.length) {
+      picker.querySelector("h2").textContent = "Niciun orar publicat";
+      picker.querySelector(".hint").textContent = "Deschide Administrarea și publică un PDF.";
+      setVisible(picker, true);
+      return;
+    }
+
+    const saved = savedSelection();
+    const known = schedules.find((item) => item.id === saved.id);
+    if (schedules.length > 1 && !known) {
+      showPrograms();
+      return;
+    }
+    selectedId = known ? known.id : schedules[0].id;
+    selectedGroup = known && known.groups[saved.group] ? saved.group : "";
+    if (selectedGroup) showTimetable();
+    else showPicker();
   }
+
+  start();
 })();
