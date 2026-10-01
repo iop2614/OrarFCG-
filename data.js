@@ -234,7 +234,7 @@ window.ORAR_DATA = {
           "room": "9-142",
           "raw": "Mecanica aplicată a fluidelor RI (curs) conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
           "slot": 2,
-          "time": "11:30–13:00",
+          "time": "09:45–11:15",
           "weeks": "both"
         },
         {
@@ -243,8 +243,8 @@ window.ORAR_DATA = {
           "teacher": "conf.univ., dr. Chetrari N/Șaragov I. / Leancă L",
           "room": "9-142",
           "raw": "Mecanica aplicată a fluidelor RI (curs) conf.univ., dr. Chetrari N/Șaragov I. / Leancă L. 9-142",
-          "slot": 2,
-          "time": "09:45–11:15",
+          "slot": 3,
+          "time": "11:30–13:00",
           "weeks": "both"
         },
         {
