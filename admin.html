@@ -22,8 +22,8 @@
         </svg>
       </div>
       <div>
-        <p class="eyebrow">UTM · FCG · anul II</p>
-        <h1>Administrare</h1>
+        <p class="eyebrow" id="admin-eyebrow">UTM · FCG · anul II</p>
+        <h1 id="admin-title">Administrare</h1>
         <p class="sub" id="admin-subtitle">Autentificare pentru orarul anului II</p>
       </div>
       <a class="admin-link" href="index.html">La studenți</a>
@@ -69,26 +69,39 @@
       <p id="form-status" class="hint" role="status"></p>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="published-panel">
       <h2>Orare publicate</h2>
       <div id="published" class="published-list"></div>
     </section>
 
-    <section id="editor" class="panel hidden" hidden>
-      <div class="toolbar">
-        <div>
-          <p class="label">Verificare</p>
-          <h2 id="editor-title">Orar extras</h2>
+    <div id="editor" class="hidden" hidden>
+      <section id="edit-picker" class="panel picker">
+        <h2>Alege grupa</h2>
+        <p class="hint">Selectează grupa. Orarul se deschide la fel ca pentru studenți, gata de modificat.</p>
+        <button type="button" id="btn-back-list" class="btn ghost hidden">La orare</button>
+        <div id="editor-groups" class="group-grid"></div>
+      </section>
+
+      <section id="edit-board" class="panel timetable hidden" hidden>
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <button type="button" id="btn-change-group" class="btn ghost">Schimbă grupa</button>
+            <div>
+              <p class="label">Grupa</p>
+              <h2 id="editor-title">—</h2>
+            </div>
+          </div>
+          <div class="week-side">
+            <p id="save-status" class="week-status" role="status"></p>
+            <div class="editor-actions">
+              <button type="button" id="btn-publish" class="btn solid">Salvează</button>
+            </div>
+          </div>
         </div>
-        <div class="editor-actions">
-          <button type="button" id="btn-publish" class="btn solid">Publică</button>
-          <button type="button" id="btn-discard" class="btn ghost">Renunță</button>
-        </div>
-      </div>
-      <p id="editor-warnings" class="hint"></p>
-      <div id="editor-groups" class="group-grid"></div>
-      <div id="editor-lessons" class="editor-lessons"></div>
-    </section>
+        <p id="editor-warnings" class="hint"></p>
+        <div id="editor-lessons" class="week-board"></div>
+      </section>
+    </div>
     </div>
   </main>
 
