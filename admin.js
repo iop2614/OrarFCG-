@@ -3,18 +3,18 @@
   const PASSWORD = "Ianik";
   const SESSION_KEY = "orar-admin-session";
   const GROUPS_KEY = "orar-an2-groups";
+  const CATALOG_KEY = "orar-catalog";
   const dayNames = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"];
 
   const loginPanel = document.getElementById("login-panel");
   const loginForm = document.getElementById("login-form");
   const loginStatus = document.getElementById("login-status");
   const adminApp = document.getElementById("admin-app");
-  const pdfPanel = document.getElementById("pdf-panel");
-  const form = document.getElementById("parse-form");
-  const statusEl = document.getElementById("form-status");
   const publishedPanel = document.getElementById("published-panel");
   const publishedEl = document.getElementById("published");
   const editor = document.getElementById("editor");
+  const programPicker = document.getElementById("program-picker");
+  const programGrid = document.getElementById("program-grid");
   const editPicker = document.getElementById("edit-picker");
   const editBoard = document.getElementById("edit-board");
   const editorTitle = document.getElementById("editor-title");
@@ -23,10 +23,12 @@
   const editorLessons = document.getElementById("editor-lessons");
   const saveStatus = document.getElementById("save-status");
   const backList = document.getElementById("btn-back-list");
+  const btnProgram = document.getElementById("btn-program");
 
   let draft = null;
   let activeGroup = "";
   let staticMode = false;
+  let schedules = [];
   const times = {
     1: "08:00–09:30",
     2: "09:45–11:15",
@@ -83,16 +85,81 @@
     };
   }
 
-  function showStaticYear2() {
+  function readLocalCatalog() {
+    try {
+      return JSON.parse(localStorage.getItem(CATALOG_KEY) || "null");
+    } catch {
+      localStorage.removeItem(CATALOG_KEY);
+      return null;
+    }
+  }
+
+  async function readFileCatalog() {
+    try {
+      const response = await fetch("orar.json");
+      if (!response.ok) return null;
+      return await response.json();
+    } catch {
+      return null;
+    }
+  }
+
+  function newerSchedules(fileBody, localBody) {
+    const fileTime = Date.parse(fileBody?.updatedAt || "") || 0;
+    const localTime = Date.parse(localBody?.updatedAt || "") || 0;
+    const fileList = fileBody?.schedules || [];
+    const localList = localBody?.schedules || [];
+    if (localList.length && localTime >= fileTime) return localList;
+    if (fileList.length) return fileList;
+    return localList;
+  }
+
+  function catalogPayload() {
+    if (draft) {
+      const copy = structuredClone(draft);
+      const index = schedules.findIndex((item) => item.id === copy.id);
+      if (index >= 0) schedules[index] = copy;
+      else schedules.push(copy);
+    }
+    return { updatedAt: new Date().toISOString(), schedules };
+  }
+
+  function downloadCatalog(payload) {
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "orar.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(link.href);
+  }
+
+  function schedulesFromJson(body) {
+    if (Array.isArray(body)) return { list: body, replace: true };
+    if (Array.isArray(body?.schedules)) return { list: body.schedules, replace: true };
+    if (body?.groups && body?.groupOrder) return { list: [body], replace: false };
+    throw new Error("Fișierul nu este un orar JSON.");
+  }
+
+  async function showStaticYear2() {
     staticMode = true;
-    setVisible(pdfPanel, false);
     setVisible(publishedPanel, false);
-    const schedule = year2FromFile();
-    if (!schedule) {
-      setVisible(publishedPanel, true);
-      publishedEl.innerHTML = "<p class='hint'>Lipsește data.js cu orarul anului II.</p>";
+    document.getElementById("btn-publish").textContent = "Pune pe site";
+    const picked = newerSchedules(await readFileCatalog(), readLocalCatalog());
+    if (picked.length) {
+      schedules = picked;
+      if (schedules.length === 1) openDraft(schedules[0]);
+      else showPrograms();
       return;
     }
+    const schedule = year2FromFile();
+    if (!schedule) {
+      schedules = [];
+      showPrograms();
+      return;
+    }
+    schedules = [schedule];
     openDraft(schedule);
   }
 
@@ -109,31 +176,43 @@
       return;
     }
     staticMode = false;
+    document.getElementById("btn-publish").textContent = "Salvează";
     const body = await response.json();
-    const schedules = body.schedules || [];
+    schedules = body.schedules || [];
+    setVisible(publishedPanel, false);
     if (!schedules.length) {
-      publishedEl.innerHTML = "<p class='hint'>Niciun orar publicat încă.</p>";
+      schedules = [];
+      showPrograms();
+      document.getElementById("import-status").textContent = "Niciun orar încă. Importă un fișier JSON.";
       return;
     }
-    publishedEl.innerHTML = schedules
+    if (schedules.length === 1) openDraft(schedules[0]);
+    else showPrograms();
+  }
+
+  function showPrograms() {
+    draft = null;
+    activeGroup = "";
+    setVisible(publishedPanel, false);
+    setVisible(editor, true);
+    setVisible(programPicker, true);
+    setVisible(editPicker, false);
+    setVisible(editBoard, false);
+    document.getElementById("admin-eyebrow").textContent = "UTM · FCG";
+    document.getElementById("admin-title").textContent = "Orar Construcții";
+    document.getElementById("admin-subtitle").textContent = "Toți anii · editare";
+    setVisible(document.getElementById("btn-publish-catalog"), staticMode);
+    programGrid.innerHTML = schedules
       .map((schedule) => {
-        const count = Object.values(schedule.groups || {}).reduce(
-          (sum, days) => sum + Object.values(days).reduce((inner, list) => inner + list.length, 0),
-          0
-        );
-        return `<article class="published-card">
-          <div>
-            <strong>${escapeHtml(schedule.faculty)} · Anul ${escapeHtml(schedule.year)}</strong>
-            <p>${escapeHtml(schedule.form)} · ${escapeHtml(schedule.semester)} · ${escapeHtml(schedule.au)} · ${count} ore</p>
-          </div>
-          <div class="editor-actions">
-            <button type="button" class="btn ghost" data-edit="${escapeHtml(schedule.id)}">Corectează</button>
-            <button type="button" class="btn ghost danger" data-delete="${escapeHtml(schedule.id)}">Șterge</button>
-          </div>
-        </article>`;
+        return `<div class="program-item">
+          <button type="button" class="group-card" data-program="${escapeHtml(schedule.id)}">
+            <span class="code">${escapeHtml(schedule.faculty)} · Anul ${escapeHtml(schedule.year)}</span>
+            <span class="meta">${escapeHtml(schedule.form)} · ${escapeHtml(schedule.semester)} · ${escapeHtml(schedule.au)}</span>
+          </button>
+          <button type="button" class="edit-remove" data-delete="${escapeHtml(schedule.id)}">Șterge</button>
+        </div>`;
       })
       .join("");
-    publishedEl._schedules = schedules;
   }
 
   function paintHeader() {
@@ -148,7 +227,6 @@
   function openDraft(schedule) {
     draft = structuredClone(schedule);
     activeGroup = "";
-    setVisible(pdfPanel, false);
     setVisible(publishedPanel, false);
     setVisible(editor, true);
     setVisible(backList, !staticMode);
@@ -160,8 +238,11 @@
   }
 
   function showGroupPicker() {
+    setVisible(programPicker, false);
     setVisible(editPicker, true);
     setVisible(editBoard, false);
+    setVisible(backList, !staticMode && schedules.length > 1);
+    setVisible(document.getElementById("btn-publish-groups"), staticMode);
     editorGroups.innerHTML = draft.groupOrder
       .map((code) => {
         return `<button type="button" class="group-card" data-group="${escapeHtml(code)}">
@@ -230,8 +311,10 @@
   function showBoard(group) {
     activeGroup = group;
     if (!draft.groups[activeGroup]) draft.groups[activeGroup] = {};
+    setVisible(programPicker, false);
     setVisible(editPicker, false);
     setVisible(editBoard, true);
+    setVisible(btnProgram, !staticMode && schedules.length > 1);
     saveStatus.textContent = "";
     renderBoard();
   }
@@ -311,26 +394,16 @@
     renderBoard();
   });
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    statusEl.textContent = "Citesc PDF-ul…";
-    const data = new FormData(form);
-    try {
-      const response = await fetch("api/admin/parse", { method: "POST", body: data });
-      const body = await response.json();
-      if (!response.ok) throw new Error(body.error || "Citirea a eșuat");
-      statusEl.textContent = "";
-      openDraft(body.schedule);
-    } catch (error) {
-      statusEl.textContent = error.message;
-    }
-  });
-
-  document.getElementById("btn-publish").addEventListener("click", async () => {
-    if (!draft) return;
+  async function publishCatalog() {
+    if (!draft && !schedules.length) return;
     if (staticMode) {
-      localStorage.setItem(GROUPS_KEY, JSON.stringify(draft.groups));
-      saveStatus.textContent = "Salvat în acest browser.";
+      const payload = catalogPayload();
+      localStorage.setItem(CATALOG_KEY, JSON.stringify(payload));
+      localStorage.removeItem(GROUPS_KEY);
+      downloadCatalog(payload);
+      const message = "S-a descărcat orar.json. Pune-l lângă index.html pe site, ca să-l vadă studenții.";
+      saveStatus.textContent = message;
+      document.getElementById("import-status").textContent = message;
       return;
     }
     saveStatus.textContent = "Salvez…";
@@ -340,37 +413,99 @@
       body: JSON.stringify(draft),
     });
     const body = await response.json();
-    saveStatus.textContent = response.ok ? "Salvat. Studenții îl văd pe pagina principală." : body.error || "Salvarea a eșuat";
-  });
-
-  backList.addEventListener("click", () => {
-    draft = null;
-    setVisible(editor, false);
-    setVisible(pdfPanel, true);
-    setVisible(publishedPanel, true);
-    document.getElementById("admin-title").textContent = "Administrare";
-    document.getElementById("admin-subtitle").textContent = "Orarul anului II";
-    loadPublished();
-  });
-
-  publishedEl.addEventListener("click", async (event) => {
-    const edit = event.target.closest("[data-edit]");
-    const remove = event.target.closest("[data-delete]");
-    if (edit) {
-      const schedule = (publishedEl._schedules || []).find((item) => item.id === edit.dataset.edit);
-      if (schedule) openDraft(schedule);
+    if (!response.ok) {
+      saveStatus.textContent = body.error || "Salvarea a eșuat";
+      return;
     }
+    const saved = structuredClone(draft);
+    const index = schedules.findIndex((item) => item.id === saved.id);
+    if (index >= 0) schedules[index] = saved;
+    else schedules.push(saved);
+    localStorage.removeItem(CATALOG_KEY);
+    saveStatus.textContent = "Salvat. Studenții îl văd pe pagina principală.";
+  }
+
+  document.getElementById("btn-publish").addEventListener("click", publishCatalog);
+  document.getElementById("btn-publish-catalog").addEventListener("click", publishCatalog);
+  document.getElementById("btn-publish-groups").addEventListener("click", publishCatalog);
+
+  document.getElementById("btn-import").addEventListener("click", () => {
+    document.getElementById("json-file").click();
+  });
+  document.getElementById("btn-import-groups").addEventListener("click", () => {
+    document.getElementById("json-file").click();
+  });
+
+  document.getElementById("json-file").addEventListener("change", async (event) => {
+    const file = event.target.files && event.target.files[0];
+    event.target.value = "";
+    const importStatus = document.getElementById("import-status");
+    if (!file) return;
+    try {
+      const body = JSON.parse(await file.text());
+      const parsed = schedulesFromJson(body);
+      for (const schedule of parsed.list) {
+        if (!schedule.groups || !schedule.groupOrder) throw new Error("Fișierul nu este un orar JSON.");
+      }
+      if (parsed.replace) schedules = parsed.list;
+      else {
+        for (const schedule of parsed.list) {
+          const index = schedules.findIndex((item) => item.id === schedule.id);
+          if (index >= 0) schedules[index] = schedule;
+          else schedules.push(schedule);
+        }
+      }
+      if (!staticMode) {
+        const response = await fetch("api/admin/import", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ schedules }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Importul a eșuat");
+        localStorage.removeItem(CATALOG_KEY);
+      } else {
+        localStorage.setItem(CATALOG_KEY, JSON.stringify({ updatedAt: new Date().toISOString(), schedules }));
+      }
+      importStatus.textContent = staticMode
+        ? "JSON-ul este încărcat. Apasă „Pune pe site” ca să descarci orar.json."
+        : "JSON-ul a fost pus pe site.";
+      if (schedules.length === 1) openDraft(schedules[0]);
+      else showPrograms();
+    } catch (error) {
+      importStatus.textContent = error.message;
+      setVisible(programPicker, true);
+    }
+  });
+
+  function returnToPrograms() {
+    if (schedules.length > 1) showPrograms();
+    else if (schedules.length === 1) openDraft(schedules[0]);
+    else showPrograms();
+  }
+
+  backList.addEventListener("click", returnToPrograms);
+  btnProgram.addEventListener("click", returnToPrograms);
+
+  programGrid.addEventListener("click", async (event) => {
+    const remove = event.target.closest("[data-delete]");
     if (remove) {
       if (!confirm("Ștergi acest orar de pe pagina studenților?")) return;
       await fetch(`api/admin/schedules/${encodeURIComponent(remove.dataset.delete)}`, { method: "DELETE" });
-      loadPublished();
+      schedules = schedules.filter((item) => item.id !== remove.dataset.delete);
+      returnToPrograms();
+      return;
     }
+    const button = event.target.closest("[data-program]");
+    if (!button) return;
+    const schedule = schedules.find((item) => item.id === button.dataset.program);
+    if (schedule) openDraft(schedule);
   });
 
   function showAdmin() {
     setVisible(loginPanel, false);
     setVisible(adminApp, true);
-    document.getElementById("admin-subtitle").textContent = "Orarul anului II";
+    document.getElementById("admin-subtitle").textContent = "Se încarcă orarele…";
     loadPublished().catch(() => showStaticYear2());
   }
 
