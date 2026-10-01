@@ -14,7 +14,6 @@
   const currentWeekLabel = document.getElementById("current-week-label");
   const eyebrow = document.getElementById("eyebrow");
   const subtitle = document.getElementById("subtitle");
-  const adminLink = document.getElementById("admin-link");
 
   let schedules = [];
   let usingServer = false;
@@ -296,11 +295,9 @@
         schedules = [schedule];
       }
     }
-    if (adminLink) setVisible(adminLink, true);
-
     if (!schedules.length) {
       picker.querySelector("h2").textContent = "Niciun orar publicat";
-      picker.querySelector(".hint").textContent = "Deschide Administrarea și publică un PDF.";
+      picker.querySelector(".hint").textContent = "Orarul nu este publicat încă.";
       setVisible(picker, true);
       return;
     }
