@@ -25,14 +25,21 @@
         </svg>
       </div>
       <div>
-        <p class="eyebrow">UTM · FCG · a.u. 2026–2027</p>
+        <p class="eyebrow" id="eyebrow">UTM · FCG · a.u. 2026–2027</p>
         <h1>Orar Construcții</h1>
-        <p class="sub">Anul II · Semestrul de toamnă</p>
+        <p class="sub" id="subtitle">Anul II · Semestrul de toamnă</p>
       </div>
+      <a id="admin-link" class="admin-link" href="admin.html">Administrare</a>
     </div>
   </header>
 
   <main>
+    <section id="program-picker" class="panel picker hidden" hidden>
+      <h2>Alege orarul</h2>
+      <p class="hint">Facultate, an și semestru. Alegerea se salvează pe acest dispozitiv.</p>
+      <div id="program-grid" class="group-grid" role="list"></div>
+    </section>
+
     <section id="picker" class="panel picker">
       <h2>Alege grupa</h2>
       <p class="hint">Selectează grupa ta. Alegerea se salvează automat pe acest dispozitiv.</p>
@@ -43,6 +50,7 @@
       <div class="toolbar">
         <div class="toolbar-left">
           <button type="button" id="btn-change" class="btn ghost">Schimbă grupa</button>
+          <button type="button" id="btn-program" class="btn ghost hidden">Schimbă orarul</button>
           <div>
             <p class="label">Grupa ta</p>
             <h2 id="active-group">—</h2>
