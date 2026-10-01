@@ -24,7 +24,7 @@
       <div>
         <p class="eyebrow" id="admin-eyebrow">UTM · FCG · anul II</p>
         <h1 id="admin-title">Administrare</h1>
-        <p class="sub" id="admin-subtitle">Autentificare pentru orarul anului II</p>
+        <p class="sub" id="admin-subtitle">Autentificare</p>
       </div>
       <a class="admin-link" href="index.html">La studenți</a>
     </div>
@@ -33,7 +33,7 @@
   <main>
     <section id="login-panel" class="panel">
       <h2>Intră în cont</h2>
-      <p class="hint">Pagina este pentru orarul anului II.</p>
+      <p class="hint">De aici modifici orarul, pentru orice an publicat.</p>
       <form id="login-form" class="admin-form">
         <label>Utilizator<input name="user" autocomplete="username" required /></label>
         <label>Parolă<input name="password" type="password" autocomplete="current-password" required /></label>
@@ -43,48 +43,39 @@
     </section>
 
     <div id="admin-app" class="hidden" hidden>
-    <section class="panel" id="pdf-panel">
-      <h2>PDF nou</h2>
-      <p class="hint">Cititorul este potrivit pentru orarul FCG, cu coloane împară și pară. După citire poți corecta fiecare oră înainte de publicare.</p>
-      <form id="parse-form" class="admin-form">
-        <label>Facultate<input name="faculty" value="FCG" required /></label>
-        <label>Numele facultății<input name="facultyName" value="Facultatea de Construcții și Geodezie" required /></label>
-        <label>Anul<input name="year" value="II" required /></label>
-        <label>Forma
-          <select name="form">
-            <option value="zi">zi</option>
-            <option value="frecvență redusă">frecvență redusă</option>
-          </select>
-        </label>
-        <label>An universitar<input name="au" value="2026-2027" required /></label>
-        <label>Semestrul
-          <select name="semester">
-            <option value="toamnă">toamnă</option>
-            <option value="primăvară">primăvară</option>
-          </select>
-        </label>
-        <label class="span-2">Fișier PDF<input name="pdf" type="file" accept="application/pdf,.pdf" required /></label>
-        <button class="btn solid" type="submit">Citește PDF-ul</button>
-      </form>
-      <p id="form-status" class="hint" role="status"></p>
-    </section>
-
-    <section class="panel" id="published-panel">
+    <section class="panel hidden" id="published-panel" hidden>
       <h2>Orare publicate</h2>
       <div id="published" class="published-list"></div>
     </section>
 
     <div id="editor" class="hidden" hidden>
+      <section id="program-picker" class="panel picker hidden" hidden>
+        <h2>Alege orarul</h2>
+        <p class="hint">Facultate, an și semestru. Apoi corectezi orele direct pe săptămână.</p>
+        <div class="editor-actions">
+          <button type="button" id="btn-import" class="btn ghost">Importă JSON</button>
+          <button type="button" id="btn-publish-catalog" class="btn solid hidden" hidden>Pune pe site</button>
+        </div>
+        <p id="json-hint" class="hint">JSON-ul se face în aplicația ORAR FCG de pe calculator. Aici îl imporți.</p>
+        <p id="import-status" class="hint" role="status"></p>
+        <div id="program-grid" class="group-grid"></div>
+      </section>
+
       <section id="edit-picker" class="panel picker">
         <h2>Alege grupa</h2>
         <p class="hint">Selectează grupa. Orarul se deschide la fel ca pentru studenți, gata de modificat.</p>
-        <button type="button" id="btn-back-list" class="btn ghost hidden">La orare</button>
+        <div class="editor-actions">
+          <button type="button" id="btn-back-list" class="btn ghost hidden">Schimbă orarul</button>
+          <button type="button" id="btn-import-groups" class="btn ghost">Importă JSON</button>
+          <button type="button" id="btn-publish-groups" class="btn solid hidden" hidden>Pune pe site</button>
+        </div>
         <div id="editor-groups" class="group-grid"></div>
       </section>
 
       <section id="edit-board" class="panel timetable hidden" hidden>
         <div class="toolbar">
           <div class="toolbar-left">
+            <button type="button" id="btn-program" class="btn ghost hidden">Schimbă orarul</button>
             <button type="button" id="btn-change-group" class="btn ghost">Schimbă grupa</button>
             <div>
               <p class="label">Grupa</p>
@@ -105,6 +96,7 @@
     </div>
   </main>
 
+  <input id="json-file" type="file" accept=".json,application/json" hidden />
   <script src="data.js"></script>
   <script src="admin.js"></script>
 </body>
