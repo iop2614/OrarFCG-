@@ -64,6 +64,87 @@ main,
   animation: rise 0.7s ease both;
 }
 
+.admin-link {
+  margin-left: auto;
+  color: var(--steel);
+  font-weight: 700;
+  text-decoration: none;
+  border: 1.5px solid rgba(28, 43, 54, 0.2);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+}
+
+.admin-link:hover { border-color: var(--safety); color: var(--safety-dark); }
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.admin-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.admin-form input,
+.admin-form select {
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid rgba(28, 43, 54, 0.16);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+}
+
+.admin-form .span-2 { grid-column: span 2; }
+
+.btn.solid {
+  background: linear-gradient(145deg, var(--safety), #9a3412);
+  color: #fff7ed;
+  border: 0;
+}
+
+.btn.danger { color: #9a3412; }
+
+.group-card.active {
+  border-color: var(--safety);
+  box-shadow: 0 12px 24px rgba(232, 93, 4, 0.18);
+}
+
+.published-list, .editor-lessons { display: grid; gap: 0.75rem; }
+
+.published-card, .lesson-edit {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(28, 43, 54, 0.1);
+}
+
+.published-card p, .lesson-edit-top { margin: 0.2rem 0 0; color: var(--muted); }
+
+.lesson-edit { display: block; }
+
+.lesson-edit-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+  color: var(--ink);
+}
+
+.editor-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+
+.admin-form.compact { margin-top: 0.2rem; }
+
 .brand-mark {
   width: 64px;
   height: 64px;
@@ -368,6 +449,87 @@ main,
   font-weight: 600;
 }
 
+.lesson.editing select,
+.lesson.editing input {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+}
+
+.lesson.editing select:focus,
+.lesson.editing input:focus {
+  outline: 2px solid rgba(232, 93, 4, 0.45);
+  background: #fff;
+}
+
+.lesson.editing .edit-time {
+  font-weight: 700;
+  color: var(--steel);
+  font-size: 0.92rem;
+  max-width: 11.5rem;
+}
+
+.lesson.editing .edit-badge {
+  appearance: none;
+  cursor: pointer;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lesson.editing .edit-subject {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.1rem 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.lesson.editing .edit-meta {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  min-width: 8rem;
+  flex: 1;
+}
+
+.lesson.editing .edit-meta span {
+  font-weight: 600;
+  color: var(--ink);
+  flex: none;
+}
+
+.lesson.editing .edit-meta input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.1rem 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.edit-remove {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: #9a3412;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-pair {
+  width: 100%;
+  border-style: dashed;
+}
+
 .hidden { display: none !important; }
 
 .site-footer {
@@ -401,6 +563,10 @@ main,
   .site-header, main, .site-footer {
     width: min(1120px, calc(100% - 1.2rem));
   }
+
+  .admin-form .span-2 { grid-column: auto; }
+
+  .published-card { flex-direction: column; align-items: stretch; }
 
   .toolbar-left {
     width: 100%;
