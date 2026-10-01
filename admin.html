@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Administrare orar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="blueprint-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="44" height="44">
+          <rect x="4" y="30" width="40" height="8" fill="currentColor"/>
+          <rect x="10" y="18" width="8" height="12" fill="currentColor"/>
+          <rect x="20" y="10" width="8" height="20" fill="currentColor"/>
+          <rect x="30" y="14" width="8" height="16" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">UTM · FCG · anul II</p>
+        <h1>Administrare</h1>
+        <p class="sub" id="admin-subtitle">Autentificare pentru orarul anului II</p>
+      </div>
+      <a class="admin-link" href="index.html">La studenți</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="login-panel" class="panel">
+      <h2>Intră în cont</h2>
+      <p class="hint">Pagina este pentru orarul anului II.</p>
+      <form id="login-form" class="admin-form">
+        <label>Utilizator<input name="user" autocomplete="username" required /></label>
+        <label>Parolă<input name="password" type="password" autocomplete="current-password" required /></label>
+        <button class="btn solid" type="submit">Intră</button>
+      </form>
+      <p id="login-status" class="hint" role="status"></p>
+    </section>
+
+    <div id="admin-app" class="hidden" hidden>
+    <section class="panel" id="pdf-panel">
+      <h2>PDF nou</h2>
+      <p class="hint">Cititorul este potrivit pentru orarul FCG, cu coloane împară și pară. După citire poți corecta fiecare oră înainte de publicare.</p>
+      <form id="parse-form" class="admin-form">
+        <label>Facultate<input name="faculty" value="FCG" required /></label>
+        <label>Numele facultății<input name="facultyName" value="Facultatea de Construcții și Geodezie" required /></label>
+        <label>Anul<input name="year" value="II" required /></label>
+        <label>Forma
+          <select name="form">
+            <option value="zi">zi</option>
+            <option value="frecvență redusă">frecvență redusă</option>
+          </select>
+        </label>
+        <label>An universitar<input name="au" value="2026-2027" required /></label>
+        <label>Semestrul
+          <select name="semester">
+            <option value="toamnă">toamnă</option>
+            <option value="primăvară">primăvară</option>
+          </select>
+        </label>
+        <label class="span-2">Fișier PDF<input name="pdf" type="file" accept="application/pdf,.pdf" required /></label>
+        <button class="btn solid" type="submit">Citește PDF-ul</button>
+      </form>
+      <p id="form-status" class="hint" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Orare publicate</h2>
+      <div id="published" class="published-list"></div>
+    </section>
+
+    <section id="editor" class="panel hidden" hidden>
+      <div class="toolbar">
+        <div>
+          <p class="label">Verificare</p>
+          <h2 id="editor-title">Orar extras</h2>
+        </div>
+        <div class="editor-actions">
+          <button type="button" id="btn-publish" class="btn solid">Publică</button>
+          <button type="button" id="btn-discard" class="btn ghost">Renunță</button>
+        </div>
+      </div>
+      <p id="editor-warnings" class="hint"></p>
+      <div id="editor-groups" class="group-grid"></div>
+      <div id="editor-lessons" class="editor-lessons"></div>
+    </section>
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
