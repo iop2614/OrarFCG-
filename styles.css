@@ -141,7 +141,30 @@ main,
   color: var(--ink);
 }
 
-.editor-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.editor-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.week-side .editor-actions { margin-bottom: 0; }
+
+.github-key input {
+  display: block;
+  width: min(420px, 100%);
+  margin: 0.35rem 0 1rem;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid rgba(28, 43, 54, 0.2);
+  border-radius: 10px;
+  font: inherit;
+}
+.github-key input {
+  display: block;
+  width: min(420px, 100%);
+  margin: 0.35rem 0 1rem;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid rgba(28, 43, 54, 0.2);
+  border-radius: 10px;
+  font: inherit;
+}
+.program-item { display: grid; justify-items: start; gap: 0.2rem; }
+.program-item .group-card { width: 100%; }
+.program-item .edit-remove { margin: 0; }
 
 .admin-form.compact { margin-top: 0.2rem; }
 
