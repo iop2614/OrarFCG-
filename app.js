@@ -274,25 +274,64 @@
     });
   });
 
-  async function start() {
+  function readLocalCatalog() {
     try {
-      const response = await fetch("/api/catalog");
-      if (!response.ok) throw new Error("offline");
-      const body = await response.json();
-      schedules = body.schedules || [];
-      usingServer = true;
+      return JSON.parse(localStorage.getItem("orar-catalog") || "null");
     } catch {
-      if (window.ORAR_DATA) {
-        const schedule = legacySchedule(window.ORAR_DATA);
-        const savedGroups = localStorage.getItem("orar-an2-groups");
-        if (savedGroups) {
-          try {
-            schedule.groups = JSON.parse(savedGroups);
-          } catch {
-            localStorage.removeItem("orar-an2-groups");
+      localStorage.removeItem("orar-catalog");
+      return null;
+    }
+  }
+
+  function newerSchedules(fileBody, localBody) {
+    const fileTime = Date.parse(fileBody?.updatedAt || "") || 0;
+    const localTime = Date.parse(localBody?.updatedAt || "") || 0;
+    const fileList = fileBody?.schedules || [];
+    const localList = localBody?.schedules || [];
+    if (localList.length && localTime >= fileTime) return localList;
+    if (fileList.length) return fileList;
+    return localList;
+  }
+
+  async function start() {
+    let fileBody = null;
+    try {
+      const remote = await fetch("https://raw.githubusercontent.com/iop2614/OrarFCG-/main/orar.json?t=" + Date.now());
+      if (remote.ok) fileBody = await remote.json();
+    } catch {
+      fileBody = null;
+    }
+    if (!fileBody) {
+      try {
+        const file = await fetch("orar.json?t=" + Date.now());
+        if (file.ok) fileBody = await file.json();
+      } catch {
+        fileBody = null;
+      }
+    }
+    const fromFile = fileBody?.schedules?.length ? fileBody.schedules : newerSchedules(null, readLocalCatalog());
+    if (fromFile.length) {
+      schedules = fromFile;
+    } else {
+      try {
+        const response = await fetch("api/catalog");
+        if (!response.ok) throw new Error("offline");
+        const body = await response.json();
+        schedules = body.schedules || [];
+        usingServer = true;
+      } catch {
+        if (window.ORAR_DATA) {
+          const schedule = legacySchedule(window.ORAR_DATA);
+          const savedGroups = localStorage.getItem("orar-an2-groups");
+          if (savedGroups) {
+            try {
+              schedule.groups = JSON.parse(savedGroups);
+            } catch {
+              localStorage.removeItem("orar-an2-groups");
+            }
           }
+          schedules = [schedule];
         }
-        schedules = [schedule];
       }
     }
     if (!schedules.length) {
