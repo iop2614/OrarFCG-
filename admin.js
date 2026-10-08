@@ -4,6 +4,8 @@
   const SESSION_KEY = "orar-admin-session";
   const GROUPS_KEY = "orar-an2-groups";
   const CATALOG_KEY = "orar-catalog";
+  const TOKEN_KEY = "orar-github-token";
+  const GITHUB_REPO = "iop2614/OrarFCG-";
   const dayNames = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"];
 
   const loginPanel = document.getElementById("login-panel");
@@ -124,15 +126,46 @@
     return { updatedAt: new Date().toISOString(), schedules };
   }
 
-  function downloadCatalog(payload) {
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "orar.json";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(link.href);
+  function githubToken() {
+    const field = document.getElementById("github-token");
+    const typed = field && field.value.trim();
+    if (typed) {
+      localStorage.setItem(TOKEN_KEY, typed);
+      return typed;
+    }
+    return localStorage.getItem(TOKEN_KEY) || "";
+  }
+
+  async function pushOrar(payload) {
+    const token = githubToken();
+    if (!token) {
+      throw new Error("Lipește cheia GitHub o singură dată, apoi apasă din nou. O creezi aici: https://github.com/settings/tokens/new?scopes=public_repo&description=Orar%20FCG");
+    }
+    const api = `https://api.github.com/repos/${GITHUB_REPO}/contents/orar.json`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+    };
+    let sha = "";
+    const current = await fetch(api, { headers });
+    if (current.ok) sha = (await current.json()).sha || "";
+    else if (current.status === 401) {
+      localStorage.removeItem(TOKEN_KEY);
+      throw new Error("Cheia GitHub nu este acceptată. Lipește una nouă.");
+    } else if (current.status !== 404) {
+      const error = await current.json().catch(() => ({}));
+      throw new Error(error.message || "Nu pot citi orarul de pe site.");
+    }
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    const body = { message: "Actualizare orar", content, branch: "main" };
+    if (sha) body.sha = sha;
+    const saved = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
+    if (!saved.ok) {
+      const error = await saved.json().catch(() => ({}));
+      if (saved.status === 401) localStorage.removeItem(TOKEN_KEY);
+      throw new Error(error.message || "Orarul nu a putut fi pus pe site.");
+    }
   }
 
   function schedulesFromJson(body) {
@@ -145,6 +178,9 @@
   async function showStaticYear2() {
     staticMode = true;
     setVisible(publishedPanel, false);
+    setVisible(document.getElementById("github-key"), true);
+    const tokenField = document.getElementById("github-token");
+    if (tokenField && !tokenField.value) tokenField.value = localStorage.getItem(TOKEN_KEY) || "";
     document.getElementById("btn-publish").textContent = "Pune pe site";
     const picked = newerSchedules(await readFileCatalog(), readLocalCatalog());
     if (picked.length) {
@@ -398,12 +434,19 @@
     if (!draft && !schedules.length) return;
     if (staticMode) {
       const payload = catalogPayload();
-      localStorage.setItem(CATALOG_KEY, JSON.stringify(payload));
-      localStorage.removeItem(GROUPS_KEY);
-      downloadCatalog(payload);
-      const message = "S-a descărcat orar.json. Pune-l lângă index.html pe site, ca să-l vadă studenții.";
-      saveStatus.textContent = message;
-      document.getElementById("import-status").textContent = message;
+      saveStatus.textContent = "Pun pe site…";
+      document.getElementById("import-status").textContent = "";
+      try {
+        await pushOrar(payload);
+        localStorage.setItem(CATALOG_KEY, JSON.stringify(payload));
+        localStorage.removeItem(GROUPS_KEY);
+        const message = "Orarul este pe site. Studenții îl văd după reîncărcare.";
+        saveStatus.textContent = message;
+        document.getElementById("import-status").textContent = message;
+      } catch (error) {
+        saveStatus.textContent = error.message;
+        document.getElementById("import-status").textContent = error.message;
+      }
       return;
     }
     saveStatus.textContent = "Salvez…";
@@ -468,8 +511,8 @@
         localStorage.setItem(CATALOG_KEY, JSON.stringify({ updatedAt: new Date().toISOString(), schedules }));
       }
       importStatus.textContent = staticMode
-        ? "JSON-ul este încărcat. Apasă „Pune pe site” ca să descarci orar.json."
-        : "JSON-ul a fost pus pe site.";
+        ? "Anul din JSON a fost adăugat. Apasă „Pune pe site” ca să apară pentru studenți."
+        : "JSON-ul a fost adăugat.";
       if (schedules.length === 1) openDraft(schedules[0]);
       else showPrograms();
     } catch (error) {
