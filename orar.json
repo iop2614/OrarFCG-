@@ -1,0 +1,934 @@
+{
+  "updatedAt": "2026-10-01T13:10:32.215466+00:00",
+  "schedules": [
+    {
+      "id": "fcg-i-zi-toamna-2026-2027",
+      "faculty": "FCG",
+      "facultyName": "Facultatea de Construcții și Geodezie",
+      "year": "I",
+      "form": "zi",
+      "au": "2026-2027",
+      "semester": "toamnă",
+      "sourcePdf": "orar-fcg-2026-2027-anul-i-zi.pdf",
+      "groupOrder": [
+        "CIC-261",
+        "CIC-262",
+        "CFDP-261",
+        "AAC-261",
+        "ISTGCC-261",
+        "ISTGCC-261 D"
+      ],
+      "days": [
+        "Luni",
+        "Marți",
+        "Miercuri",
+        "Joi",
+        "Vineri"
+      ],
+      "times": {
+        "1": "08:00–09:30",
+        "2": "09:45–11:15",
+        "3": "11:30–13:00",
+        "4": "13:30–15:00",
+        "5": "15:15–16:45",
+        "6": "17:00–18:30",
+        "7": "18:45–20:15"
+      },
+      "groups": {
+        "CIC-261": {
+          "Luni": [
+            {
+              "subject": "Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Tibichi E",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "T. Platon dr. L.u",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "V. Pintea dr. univ., conf",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Pintea V",
+              "room": "10-302",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Tehnologii inform. si securitate cibern. (lab)",
+              "type": "lab",
+              "teacher": "conf. univ., dr. Turcan V",
+              "room": "10-101",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "para"
+            },
+            {
+              "subject": "L.străină 1 (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L., Armaş S., Cebotari S., Prozor-Barbalat L., Burlea L. 10-108 , 116 , 122 . A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., V. Pintea dr. 9 _ P 20",
+              "room": "",
+              "slot": 5,
+              "time": "15:15–16:45",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Fizica (lab)",
+              "type": "lab",
+              "teacher": "N. Piletchi a.u",
+              "room": "10-423, 0425",
+              "slot": 5,
+              "time": "15:15–16:45",
+              "weeks": "para"
+            },
+            {
+              "subject": "9 _ P 20",
+              "type": "",
+              "teacher": "",
+              "room": "",
+              "slot": 6,
+              "time": "17:00–18:30",
+              "weeks": "both"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "și tehnică Reprezentarea conf.univ., infografică (curs)",
+              "type": "curs",
+              "teacher": "dr. Botez A",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "şi Algebra liniară Educația iniaя Aigebra fizică geometria analitică sporturi de sala (sem)",
+              "type": "sem",
+              "teacher": "Cinhss V. Catană a.u. Ciuhrii V",
+              "room": "10-108",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "conf. univ., dr. Haritonov S",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Vacaraş O. 9",
+              "room": "03-01",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Vacaraş O",
+              "room": "10-309",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "V. Craciun L.u",
+              "room": "10-124",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "V. Craciun I.u",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Analiza matematică (sem)",
+              "type": "sem",
+              "teacher": "a.u. Ciuhrii V",
+              "room": "10-108",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "para"
+            }
+          ]
+        },
+        "CIC-262": {
+          "Luni": [
+            {
+              "subject": "Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "10-conf.univ., dr. Țibichi E. 10302",
+              "room": "",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Platon T",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și Algebra liniară și analitică analitică geometria geometria V. Ciuhrii",
+              "type": "",
+              "teacher": "a.u. a.u. Ciuhrii V",
+              "room": "",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "L. sträinä 1 (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L., Armaş S., Cebotari S., Prozor-Barbalat L., Burlea L. ､ 10-113122 A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Tehnologii inform. și securitate cibern. (lab)",
+              "type": "lab",
+              "teacher": "conf. univ., dr. Turcan V",
+              "room": "10-101",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "şi Reprezentarea tehnică infografică conf.univ., (curs)",
+              "type": "curs",
+              "teacher": "dr. A. Botez 10201",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "conf. univ., dr. Haritonov S",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "I.u., dr. Vacaras O",
+              "room": "10-309",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "1.u., dr. Vacaraş O",
+              "room": "10-309",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "1.u. Craciun V",
+              "room": "10-124",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Reprezentarea tehnică si infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "V. Craciun 1.u",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ]
+        },
+        "CFDP-261": {
+          "Luni": [
+            {
+              "subject": "Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Țibichi E",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "T. Platon dr. L.u",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Tehnologii inform. Educatia ﬁzică si securitate cibern. sala de sporturi",
+              "type": "",
+              "teacher": "a.u. Şuvar D. a.u. Catanã V",
+              "room": "",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "L. sträină I (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L.., Armaş S., Cebotari S., Prozor-Barbalat L., Burica L. ､ 10-113122 A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "conf. univ., dr. Pîntea V",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "dr. conf.univ., Pintea V",
+              "room": "10-302",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Algebra liniară și analitică geometria (sem)",
+              "type": "sem",
+              "teacher": "a.u. Ciuhrii V",
+              "room": "10-108",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "para"
+            },
+            {
+              "subject": "Fizica (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., V. Pintea dr. 20",
+              "room": "9-P",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Fizica (lab)",
+              "type": "lab",
+              "teacher": "a.u. Piletchi N",
+              "room": "10-423, 0425",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "para"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "Reprezentarea și tehnică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., infografică dr. A. Botez 20210",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "S. Haritonov dr. univ., conf",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Vacaraş O. 9",
+              "room": "03-01",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică Reprezentarea tehnică și infograﬁcà (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., dr.Botez. A. Lu., dr. Vacaraş O. -309",
+              "room": "10-12310",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Analiza matematică (sem)",
+              "type": "sem",
+              "teacher": "V. Ciuhrii a.u",
+              "room": "10-108",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf., dr. Botez A",
+              "room": "10-112",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ]
+        },
+        "AAC-261": {
+          "Luni": [
+            {
+              "subject": "Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "10-conf. univ., dr. Țibichi E",
+              "room": "",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "T. Platon dr. I.u., 10-302 Tehnologii inform",
+              "room": "",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Tehnologii inform. Educația ﬁzică si securitate cibern. sporturi de sala D. Suvar",
+              "type": "",
+              "teacher": "a.u. V. Catană a.u",
+              "room": "",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "L. sträinä I (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L., Armaş S., Cebotari S., Prozor-Barbalat L., Burlea L. ､ 10-113122 A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "V. Pintea dr. univ., conf",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și Fizica (curs)",
+              "type": "curs",
+              "teacher": "analitică geometria conf.univ., dr. Pintea V. a.u. Ciuhrii V. -108",
+              "room": "10-30210",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "Reprezentarea și tehnică infografică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Botez А",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "S. Haritonov dr. univ., conf",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "I.u., dr. Vacaraş O. 9",
+              "room": "03-01",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică Reprezentarea tehnică infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., dr.Botez A. Lu., dr. Vacaraş O. -309",
+              "room": "10-12310",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Analiza matematică (sem)",
+              "type": "sem",
+              "teacher": "a.u. Ciuhrii V",
+              "room": "10-108",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf., dr. Botez A",
+              "room": "10-112",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ]
+        },
+        "ISTGCC-261": {
+          "Luni": [
+            {
+              "subject": "Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Tibichi E",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Platon T",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "conf. univ., dr. Pintea V",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (curs)",
+              "type": "curs",
+              "teacher": "ﬁzică Educația conf.univ., dr. sala de sporturi V. Pintea V. Catanã a.u",
+              "room": "10-302",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "L.străină 1 (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L., Armaş S., Cebotari S., Prozor-Barbalat L., Burlea L. 10-108 , 116 , 122 A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "Reprezentarea tehnică și conf.univ., infografică (curs)",
+              "type": "curs",
+              "teacher": "de Da dr. A. Botez",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Tehnologii Tehnologii informaționale informaționale I jumate jumate grupă de grupă de II D. Şuvar Şuvar D arens",
+              "type": "",
+              "teacher": "",
+              "room": "10-101101",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "S. Haritonov dr. univ., conf",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "l.u., dr. Vacaraş O",
+              "room": "10-309",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și Analiza matematică și analitică geometria (sem)",
+              "type": "sem",
+              "teacher": "Lu., dr. Vacaraş O. a.u. Ciuhrii V. -P 20",
+              "room": "10-3099",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Chimia (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., dr. Haritonov S",
+              "room": "10-108",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "9-P 20 Analiza matematică (sem)",
+              "type": "sem",
+              "teacher": "2 . u . Ciuhrii V. ﾀ - P 20",
+              "room": "",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "para"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf., dr. Botez A",
+              "room": "10-112",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "Fizica (sem)",
+              "type": "sem",
+              "teacher": "conf. univ., dr. Pintea V",
+              "room": "10-231",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Fizica (lab)",
+              "type": "lab",
+              "teacher": "conf. univ., dr. Pintea V./ Piletchi N",
+              "room": "10-423, 425",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "para"
+            },
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf., dr. Botez A",
+              "room": "10-112",
+              "slot": 5,
+              "time": "15:15–16:45",
+              "weeks": "both"
+            }
+          ]
+        },
+        "ISTGCC-261 D": {
+          "Luni": [
+            {
+              "subject": "D Tehnologii informaționale și securitate cibernetică (curs)",
+              "type": "curs",
+              "teacher": "10 conf.univ., dr. Țibichi E",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și geometria analitică (curs)",
+              "type": "curs",
+              "teacher": "L.u., dr. Platon T",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Ingineria Tehnologii inform. mediului și securitate cibern. (lab)",
+              "type": "lab",
+              "teacher": "conf.univ., dr. a.u. Suvar D. Beglet N",
+              "room": "9-244",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            },
+            {
+              "subject": "9-24410-101 L. sträinä I (sem)",
+              "type": "sem",
+              "teacher": "a.u. Bivol L., Armaş S., Cebotari S.. Prozor-Barbalat L., Burica L. ､ 10-113122 A , 123",
+              "room": "10-124",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Marți": [
+            {
+              "subject": "Etica și integritatea academică (curs)",
+              "type": "curs",
+              "teacher": "conf.univ., dr. Ursu V",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Securitatea și sănătatea în muncă (curs)",
+              "type": "curs",
+              "teacher": "conf. univ., dr. Bencheci M. 9",
+              "room": "03-01",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "both"
+            }
+          ],
+          "Miercuri": [
+            {
+              "subject": "Reprezentarea și tehnică conf.univ., (curs)",
+              "type": "curs",
+              "teacher": "infografică dr. Botez A",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            }
+          ],
+          "Joi": [
+            {
+              "subject": "Chimia (curs)",
+              "type": "curs",
+              "teacher": "S. Haritonov dr. univ., conf",
+              "room": "10-302",
+              "slot": 1,
+              "time": "08:00–09:30",
+              "weeks": "both"
+            },
+            {
+              "subject": "Analiza matematică (curs)",
+              "type": "curs",
+              "teacher": "l.u., dr. Vacaraş O",
+              "room": "10-309",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "Algebra liniară și Analiza matematică analitică geometria (sem)",
+              "type": "sem",
+              "teacher": "I.u., dr. Vacaraş O. a.u. Ciuhrii V. -P 20",
+              "room": "10-3099",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "both"
+            }
+          ],
+          "Vineri": [
+            {
+              "subject": "Materiale de construcție (curs)",
+              "type": "curs",
+              "teacher": "E. Proaspät univ., conf",
+              "room": "10-302",
+              "slot": 2,
+              "time": "09:45–11:15",
+              "weeks": "both"
+            },
+            {
+              "subject": "SSM (lab)",
+              "type": "lab",
+              "teacher": "1u L. Gangan",
+              "room": "10-330",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Reprezentarea tehnică și infograﬁcă (sem)",
+              "type": "sem",
+              "teacher": "conf., dr. Botez A",
+              "room": "10-112",
+              "slot": 3,
+              "time": "11:30–13:00",
+              "weeks": "para"
+            },
+            {
+              "subject": "Fizica (sem)",
+              "type": "sem",
+              "teacher": "dr. univ., conf. V. Pintea",
+              "room": "10-231",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "impara"
+            },
+            {
+              "subject": "Fizica (lab)",
+              "type": "lab",
+              "teacher": "conf. univ., dr. Pintea V./ Piletchi N. 524 . 3",
+              "room": "24-01",
+              "slot": 4,
+              "time": "13:30–15:00",
+              "weeks": "para"
+            }
+          ]
+        }
+      },
+      "warnings": [],
+      "lessonCount": 0
+    }
+  ]
+}
