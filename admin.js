@@ -139,7 +139,8 @@
   async function pushOrar(payload) {
     const token = githubToken();
     if (!token) {
-      throw new Error("Lipește cheia GitHub o singură dată, apoi apasă din nou. O creezi aici: https://github.com/settings/tokens/new?scopes=public_repo&description=Orar%20FCG");
+      setVisible(document.getElementById("github-key"), true);
+      throw new Error("Lipește cheia GitHub, apoi apasă din nou.");
     }
     const api = `https://api.github.com/repos/${GITHUB_REPO}/contents/orar.json`;
     const headers = {
