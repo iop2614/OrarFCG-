@@ -49,6 +49,9 @@
     </section>
 
     <div id="editor" class="hidden" hidden>
+      <label id="github-key" class="hint github-key hidden" hidden>Cheie GitHub, o singură dată
+        <input id="github-token" type="password" autocomplete="off" placeholder="ghp_..." />
+      </label>
       <section id="program-picker" class="panel picker hidden" hidden>
         <h2>Alege orarul</h2>
         <p class="hint">Facultate, an și semestru. Apoi corectezi orele direct pe săptămână.</p>
@@ -56,7 +59,7 @@
           <button type="button" id="btn-import" class="btn ghost">Importă JSON</button>
           <button type="button" id="btn-publish-catalog" class="btn solid hidden" hidden>Pune pe site</button>
         </div>
-        <p id="json-hint" class="hint">JSON-ul se face în aplicația ORAR FCG de pe calculator. Aici îl imporți.</p>
+        <p id="json-hint" class="hint">Importă JSON doar când adaugi un an nou din aplicația ORAR FCG. Modificările le pui pe site cu butonul de mai jos.</p>
         <p id="import-status" class="hint" role="status"></p>
         <div id="program-grid" class="group-grid"></div>
       </section>
