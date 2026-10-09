@@ -130,8 +130,18 @@
     });
   }
 
+  function orderedSchedules(list) {
+    const rank = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6 };
+    return [...list].sort((a, b) => {
+      const ay = rank[String(a.year || "").toUpperCase()] || 50;
+      const by = rank[String(b.year || "").toUpperCase()] || 50;
+      if (ay !== by) return ay - by;
+      return String(a.semester || "").localeCompare(String(b.semester || ""), "ro");
+    });
+  }
+
   function renderPrograms() {
-    programGrid.innerHTML = schedules
+    programGrid.innerHTML = orderedSchedules(schedules)
       .map((schedule) => {
         return `<button type="button" class="group-card" data-program="${escapeHtml(schedule.id)}" role="listitem">
           <span class="code">${escapeHtml(schedule.faculty)} · Anul ${escapeHtml(schedule.year)}</span>
@@ -231,9 +241,12 @@
 
   function selectProgram(id) {
     selectedId = id;
-    selectedGroup = "";
+    const saved = savedSelection();
+    const schedule = currentSchedule();
+    selectedGroup = saved.id === id && schedule && schedule.groups[saved.group] ? saved.group : "";
     remember();
-    showPicker();
+    if (selectedGroup) showTimetable();
+    else showPicker();
   }
 
   function selectGroup(code) {
@@ -341,12 +354,12 @@
       return;
     }
 
-    const saved = savedSelection();
-    const known = schedules.find((item) => item.id === saved.id);
-    if (schedules.length > 1 && !known) {
+    if (schedules.length > 1) {
       showPrograms();
       return;
     }
+    const saved = savedSelection();
+    const known = schedules.find((item) => item.id === saved.id);
     selectedId = known ? known.id : schedules[0].id;
     selectedGroup = known && known.groups[saved.group] ? saved.group : "";
     if (selectedGroup) showTimetable();
