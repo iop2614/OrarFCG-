@@ -160,48 +160,56 @@ const REMOVED_KEY = "orar-removed-ids";
       Accept: "application/vnd.github+json",
       "Content-Type": "application/json",
     };
-    let sha = "";
-    let remoteSchedules = [];
-    const current = await fetch(api, { headers });
-    if (current.ok) {
-      const info = await current.json();
-      sha = info.sha || "";
-      if (info.content) {
-        try {
-          const remote = JSON.parse(decodeURIComponent(escape(atob(info.content.replace(/\n/g, "")))));
-          remoteSchedules = remote.schedules || [];
-        } catch {
-          remoteSchedules = [];
-        }
-      }
-    } else if (current.status === 401) {
-      localStorage.removeItem(TOKEN_KEY);
-      throw new Error("Cheia GitHub nu este acceptată. Lipește una nouă.");
-    } else if (current.status !== 404) {
-      const error = await current.json().catch(() => ({}));
-      throw new Error(error.message || "Nu pot citi orarul de pe site.");
-    }
     const removed = removedIds();
-    const merged = new Map();
-    for (const item of remoteSchedules) {
-      if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
-    }
-    for (const item of payload.schedules || []) {
-      if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
-    }
-    payload = { updatedAt: payload.updatedAt, schedules: [...merged.values()] };
-    schedules = payload.schedules;
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-    const body = { message: "Actualizare orar", content, branch: "main" };
-    if (sha) body.sha = sha;
-    const saved = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
-    if (!saved.ok) {
+    let lastError = "Orarul nu a putut fi pus pe site.";
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      let sha = "";
+      let remoteSchedules = [];
+      const current = await fetch(`${api}?ref=main&t=${Date.now()}`, { headers, cache: "no-store" });
+      if (current.ok) {
+        const info = await current.json();
+        sha = info.sha || "";
+        if (info.content) {
+          try {
+            const remote = JSON.parse(decodeURIComponent(escape(atob(info.content.replace(/\n/g, "")))));
+            remoteSchedules = remote.schedules || [];
+          } catch {
+            remoteSchedules = [];
+          }
+        }
+      } else if (current.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        throw new Error("Cheia GitHub nu este acceptată. Lipește una nouă.");
+      } else if (current.status !== 404) {
+        const error = await current.json().catch(() => ({}));
+        throw new Error(error.message || "Nu pot citi orarul de pe site.");
+      }
+      const merged = new Map();
+      for (const item of remoteSchedules) {
+        if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
+      }
+      for (const item of payload.schedules || []) {
+        if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
+      }
+      const next = { updatedAt: new Date().toISOString(), schedules: [...merged.values()] };
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(next))));
+      const body = { message: "Actualizare orar", content, branch: "main" };
+      if (sha) body.sha = sha;
+      const saved = await fetch(api, { method: "PUT", headers, cache: "no-store", body: JSON.stringify(body) });
+      if (saved.ok) {
+        schedules = next.schedules;
+        localStorage.removeItem(REMOVED_KEY);
+        return next;
+      }
       const error = await saved.json().catch(() => ({}));
-      if (saved.status === 401) localStorage.removeItem(TOKEN_KEY);
-      throw new Error(error.message || "Orarul nu a putut fi pus pe site.");
+      if (saved.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        throw new Error("Cheia GitHub nu este acceptată. Lipește una nouă.");
+      }
+      lastError = error.message || lastError;
+      if (saved.status !== 409) throw new Error(lastError);
     }
-    localStorage.removeItem(REMOVED_KEY);
-    return payload;
+    throw new Error(lastError);
   }
 
   function schedulesFromJson(body) {
@@ -476,42 +484,50 @@ const REMOVED_KEY = "orar-removed-ids";
     renderBoard();
   });
 
+  let publishing = false;
+
   async function publishCatalog() {
+    if (publishing) return;
     if (!draft && !schedules.length) return;
-    if (staticMode) {
-      const payload = catalogPayload();
-      saveStatus.textContent = "Pun pe site…";
-      document.getElementById("import-status").textContent = "";
-      try {
-        const published = await pushOrar(payload);
-        localStorage.setItem(CATALOG_KEY, JSON.stringify(published));
-        localStorage.removeItem(GROUPS_KEY);
-        const message = "Orarul este pe site. Studenții îl văd după reîncărcare.";
-        saveStatus.textContent = message;
-        document.getElementById("import-status").textContent = message;
-      } catch (error) {
-        saveStatus.textContent = error.message;
-        document.getElementById("import-status").textContent = error.message;
+    publishing = true;
+    try {
+      if (staticMode) {
+        const payload = catalogPayload();
+        saveStatus.textContent = "Pun pe site…";
+        document.getElementById("import-status").textContent = "";
+        try {
+          const published = await pushOrar(payload);
+          localStorage.setItem(CATALOG_KEY, JSON.stringify(published));
+          localStorage.removeItem(GROUPS_KEY);
+          const message = "Orarul este pe site. Studenții îl văd după reîncărcare.";
+          saveStatus.textContent = message;
+          document.getElementById("import-status").textContent = message;
+        } catch (error) {
+          saveStatus.textContent = error.message;
+          document.getElementById("import-status").textContent = error.message;
+        }
+        return;
       }
-      return;
+      saveStatus.textContent = "Salvez…";
+      const response = await fetch("api/admin/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(draft),
+      });
+      const body = await response.json();
+      if (!response.ok) {
+        saveStatus.textContent = body.error || "Salvarea a eșuat";
+        return;
+      }
+      const saved = structuredClone(draft);
+      const index = schedules.findIndex((item) => item.id === saved.id);
+      if (index >= 0) schedules[index] = saved;
+      else schedules.push(saved);
+      localStorage.removeItem(CATALOG_KEY);
+      saveStatus.textContent = "Salvat. Studenții îl văd pe pagina principală.";
+    } finally {
+      publishing = false;
     }
-    saveStatus.textContent = "Salvez…";
-    const response = await fetch("api/admin/publish", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(draft),
-    });
-    const body = await response.json();
-    if (!response.ok) {
-      saveStatus.textContent = body.error || "Salvarea a eșuat";
-      return;
-    }
-    const saved = structuredClone(draft);
-    const index = schedules.findIndex((item) => item.id === saved.id);
-    if (index >= 0) schedules[index] = saved;
-    else schedules.push(saved);
-    localStorage.removeItem(CATALOG_KEY);
-    saveStatus.textContent = "Salvat. Studenții îl văd pe pagina principală.";
   }
 
   document.getElementById("btn-publish").addEventListener("click", publishCatalog);
