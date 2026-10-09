@@ -5,6 +5,7 @@
   const GROUPS_KEY = "orar-an2-groups";
   const CATALOG_KEY = "orar-catalog";
   const TOKEN_KEY = "orar-github-token";
+const REMOVED_KEY = "orar-removed-ids";
   const GITHUB_REPO = "iop2614/OrarFCG-";
   const dayNames = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"];
 
@@ -106,14 +107,25 @@
     }
   }
 
+  function removedIds() {
+    try {
+      const list = JSON.parse(localStorage.getItem(REMOVED_KEY) || "[]");
+      return new Set(Array.isArray(list) ? list : []);
+    } catch {
+      return new Set();
+    }
+  }
+
   function newerSchedules(fileBody, localBody) {
-    const fileTime = Date.parse(fileBody?.updatedAt || "") || 0;
-    const localTime = Date.parse(localBody?.updatedAt || "") || 0;
-    const fileList = fileBody?.schedules || [];
-    const localList = localBody?.schedules || [];
-    if (localList.length && localTime >= fileTime) return localList;
-    if (fileList.length) return fileList;
-    return localList;
+    const removed = removedIds();
+    const map = new Map();
+    for (const item of fileBody?.schedules || []) {
+      if (item && item.id && !removed.has(item.id)) map.set(item.id, item);
+    }
+    for (const item of localBody?.schedules || []) {
+      if (item && item.id && !removed.has(item.id)) map.set(item.id, item);
+    }
+    return [...map.values()];
   }
 
   function catalogPayload() {
@@ -149,15 +161,36 @@
       "Content-Type": "application/json",
     };
     let sha = "";
+    let remoteSchedules = [];
     const current = await fetch(api, { headers });
-    if (current.ok) sha = (await current.json()).sha || "";
-    else if (current.status === 401) {
+    if (current.ok) {
+      const info = await current.json();
+      sha = info.sha || "";
+      if (info.content) {
+        try {
+          const remote = JSON.parse(decodeURIComponent(escape(atob(info.content.replace(/\n/g, "")))));
+          remoteSchedules = remote.schedules || [];
+        } catch {
+          remoteSchedules = [];
+        }
+      }
+    } else if (current.status === 401) {
       localStorage.removeItem(TOKEN_KEY);
       throw new Error("Cheia GitHub nu este acceptată. Lipește una nouă.");
     } else if (current.status !== 404) {
       const error = await current.json().catch(() => ({}));
       throw new Error(error.message || "Nu pot citi orarul de pe site.");
     }
+    const removed = removedIds();
+    const merged = new Map();
+    for (const item of remoteSchedules) {
+      if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
+    }
+    for (const item of payload.schedules || []) {
+      if (item && item.id && !removed.has(item.id)) merged.set(item.id, item);
+    }
+    payload = { updatedAt: payload.updatedAt, schedules: [...merged.values()] };
+    schedules = payload.schedules;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
     const body = { message: "Actualizare orar", content, branch: "main" };
     if (sha) body.sha = sha;
@@ -167,6 +200,8 @@
       if (saved.status === 401) localStorage.removeItem(TOKEN_KEY);
       throw new Error(error.message || "Orarul nu a putut fi pus pe site.");
     }
+    localStorage.removeItem(REMOVED_KEY);
+    return payload;
   }
 
   function schedulesFromJson(body) {
@@ -227,6 +262,16 @@
     else showPrograms();
   }
 
+  function orderedSchedules(list) {
+    const rank = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6 };
+    return [...list].sort((a, b) => {
+      const ay = rank[String(a.year || "").toUpperCase()] || 50;
+      const by = rank[String(b.year || "").toUpperCase()] || 50;
+      if (ay !== by) return ay - by;
+      return String(a.semester || "").localeCompare(String(b.semester || ""), "ro");
+    });
+  }
+
   function showPrograms() {
     draft = null;
     activeGroup = "";
@@ -239,7 +284,7 @@
     document.getElementById("admin-title").textContent = "Orar Construcții";
     document.getElementById("admin-subtitle").textContent = "Toți anii · editare";
     setVisible(document.getElementById("btn-publish-catalog"), staticMode);
-    programGrid.innerHTML = schedules
+    programGrid.innerHTML = orderedSchedules(schedules)
       .map((schedule) => {
         return `<div class="program-item">
           <button type="button" class="group-card" data-program="${escapeHtml(schedule.id)}">
@@ -438,8 +483,8 @@
       saveStatus.textContent = "Pun pe site…";
       document.getElementById("import-status").textContent = "";
       try {
-        await pushOrar(payload);
-        localStorage.setItem(CATALOG_KEY, JSON.stringify(payload));
+        const published = await pushOrar(payload);
+        localStorage.setItem(CATALOG_KEY, JSON.stringify(published));
         localStorage.removeItem(GROUPS_KEY);
         const message = "Orarul este pe site. Studenții îl văd după reîncărcare.";
         saveStatus.textContent = message;
@@ -491,13 +536,13 @@
       for (const schedule of parsed.list) {
         if (!schedule.groups || !schedule.groupOrder) throw new Error("Fișierul nu este un orar JSON.");
       }
-      if (parsed.replace) schedules = parsed.list;
-      else {
-        for (const schedule of parsed.list) {
-          const index = schedules.findIndex((item) => item.id === schedule.id);
-          if (index >= 0) schedules[index] = schedule;
-          else schedules.push(schedule);
-        }
+      for (const schedule of parsed.list) {
+        const removed = removedIds();
+        removed.delete(schedule.id);
+        localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed]));
+        const index = schedules.findIndex((item) => item.id === schedule.id);
+        if (index >= 0) schedules[index] = schedule;
+        else schedules.push(schedule);
       }
       if (!staticMode) {
         const response = await fetch("api/admin/import", {
@@ -535,8 +580,17 @@
     const remove = event.target.closest("[data-delete]");
     if (remove) {
       if (!confirm("Ștergi acest orar de pe pagina studenților?")) return;
-      await fetch(`api/admin/schedules/${encodeURIComponent(remove.dataset.delete)}`, { method: "DELETE" });
+      if (!staticMode) {
+        await fetch(`api/admin/schedules/${encodeURIComponent(remove.dataset.delete)}`, { method: "DELETE" });
+      }
       schedules = schedules.filter((item) => item.id !== remove.dataset.delete);
+      if (staticMode) {
+        const removed = removedIds();
+        removed.add(remove.dataset.delete);
+        localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed]));
+        localStorage.setItem(CATALOG_KEY, JSON.stringify({ updatedAt: new Date().toISOString(), schedules }));
+        document.getElementById("import-status").textContent = "Anul a fost scos. Apasă „Pune pe site” ca să dispară și pentru studenți.";
+      }
       returnToPrograms();
       return;
     }
